@@ -33,7 +33,8 @@ class Router
 
     public function __construct(Request $request = null)
     {
-
+        $this->setRequest($request);
+        $this->setMatcher(new RouteMatcher($this->getRequest()->getUrl()));
     }
 
     /**
@@ -48,7 +49,7 @@ class Router
      * @param RouteMatcherInterface $matcher
      * @return Router
      */
-    public function setMatcher($matcher)
+    public function setMatcher(RouteMatcherInterface $matcher)
     {
         $this->matcher = $matcher;
         return $this;

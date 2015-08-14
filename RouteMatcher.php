@@ -14,7 +14,7 @@ namespace Anonym\Components\Route;
  * Class RouteMatcher
  * @package Anonym\Components\Route
  */
-class RouteMatcher
+class RouteMatcher implements RouteMatcherInterface
 {
 
     /**
