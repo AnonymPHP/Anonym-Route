@@ -9,4 +9,3 @@
 
 include 'vendor/autoload.php';
 
-use Anonym\Components\Route\RouteCollector;
