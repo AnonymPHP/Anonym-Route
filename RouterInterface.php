@@ -22,7 +22,7 @@ interface RouterInterface
     /**
      * Run the router and check requested uri
      *
-     * @return void
+     * @return bool
      */
     public function run();
 

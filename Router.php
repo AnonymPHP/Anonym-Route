@@ -117,7 +117,7 @@ class Router implements RouterInterface
     /**
      * Run the router and check requested uri
      *
-     * @return void
+     * @return bool
      */
     public function run()
     {
@@ -133,10 +133,14 @@ class Router implements RouterInterface
                 if($this->getMatcher()->match($collection['uri']))
                 {
 
+
+                    return true;
                 }
             }
+
         }else{
-            
+
+            throw new RouteMatchException(sprintf('There is no route in your %s method', $method));
         }
     }
 
