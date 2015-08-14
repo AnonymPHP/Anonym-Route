@@ -14,7 +14,7 @@ use Anonym\Components\HttpClient\Request;
  * Class Router
  * @package Anonym\Components\Route
  */
-class Router
+class Router implements RouterInterface
 {
 
     /**
@@ -42,11 +42,6 @@ class Router
         $this->setMatcher(new RouteMatcher($this->getRequest()->getUrl()));
     }
 
-
-    public function run()
-    {
-
-    }
     /**
      * @return RouteMatcherInterface
      */
@@ -88,4 +83,13 @@ class Router
     }
 
 
+    /**
+     * Run the router and check requested uri
+     *
+     * @return void
+     */
+    public function run()
+    {
+
+    }
 }
