@@ -10,7 +10,10 @@
 
 namespace Anonym\Components\Route;
 
-
+/**
+ * Class Router
+ * @package Anonym\Components\Route
+ */
 class Router
 {
 
