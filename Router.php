@@ -133,9 +133,10 @@ class Router implements RouterInterface
                 if($this->getMatcher()->match($collection['uri']))
                 {
 
-
                 }
             }
+        }else{
+            
         }
     }
 
