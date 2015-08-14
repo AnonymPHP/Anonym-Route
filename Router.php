@@ -9,7 +9,7 @@
 
 
 namespace Anonym\Components\Route;
-
+use Anonym\Components\HttpClient\Request;
 /**
  * Class Router
  * @package Anonym\Components\Route
@@ -31,9 +31,46 @@ class Router
      */
     private $request;
 
-    public function __construct()
+    public function __construct(Request $request = null)
     {
 
     }
+
+    /**
+     * @return RouteMatcherInterface
+     */
+    public function getMatcher()
+    {
+        return $this->matcher;
+    }
+
+    /**
+     * @param RouteMatcherInterface $matcher
+     * @return Router
+     */
+    public function setMatcher($matcher)
+    {
+        $this->matcher = $matcher;
+        return $this;
+    }
+
+    /**
+     * @return Request
+     */
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    /**
+     * @param Request $request
+     * @return Router
+     */
+    public function setRequest(Request $request)
+    {
+        $this->request = $request;
+        return $this;
+    }
+
 
 }
