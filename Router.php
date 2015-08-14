@@ -90,6 +90,21 @@ class Router implements RouterInterface
      */
     public function run()
     {
+        $collections = RouteCollector::getRoutes();
+        $method = strtoupper($this->getRequest()->getMethod());
 
+        if (isset($collections[$method])) {
+
+            $collections = $collections[$method];
+
+            foreach($collections as $collection)
+            {
+                if($this->getMatcher()->match($collection['uri']))
+                {
+
+
+                }
+            }
+        }
     }
 }

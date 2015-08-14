@@ -10,11 +10,8 @@
 
 namespace Anonym\Components\Route;
 
-/**
- * Class MethodMatcher
- * @package Anonym\Components\Route
- */
-class MethodMatcher
+
+class ActionDispatcher
 {
 
 }
