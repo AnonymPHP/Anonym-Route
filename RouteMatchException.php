@@ -12,7 +12,17 @@
 namespace Anonym\Components\Route;
 use Exception;
 
-class RouteMatchException
+class RouteMatchException extends Exception
 {
+
+    /**
+     * Throw a exception
+     *
+     * @param string $message the message of exception
+     */
+    public function __construct($message = '')
+    {
+        $this->message = $message;
+    }
 
 }
