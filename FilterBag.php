@@ -10,8 +10,16 @@
 
 namespace Anonym\Components\Route;
 
-
+/**
+ * Class FilterBag
+ * @package Anonym\Components\Route
+ */
 class FilterBag
 {
-
+    /**
+     * Filtreleri tutar
+     *
+     * @var array
+     */
+    private $filters = [];
 }
