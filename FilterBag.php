@@ -17,7 +17,7 @@ namespace Anonym\Components\Route;
 class FilterBag
 {
     /**
-     * Filtreleri tutar
+     * All filters
      *
      * @var array
      */

@@ -7,6 +7,11 @@
  *
  */
 
-include 'vendor/autoload.php';
 
-use Anonym\Components\Route\RouteCollector;
+namespace Anonym\Components\Route;
+
+
+class Router
+{
+
+}
