@@ -10,9 +10,23 @@
 
 
 namespace Anonym\Components\Route;
+use Exception;
 
-
-class ControllerException
+/**
+ * the class of controller exception
+ *
+ * Class ControllerException
+ * @package Anonym\Components\Route
+ */
+class ControllerException extends Exception
 {
-
+    /**
+     * throw a new exception with message string
+     *
+     * @param string $message the message of exception
+     */
+    public function __construct($message = '')
+    {
+        $this->message = $message;
+    }
 }
