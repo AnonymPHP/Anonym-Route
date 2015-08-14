@@ -18,7 +18,7 @@ class Router implements RouterInterface
 {
 
     /**
-     * A instance of The RouteMatcherInterface
+     * the instance of RouteMatcherInterface
      *
      * @var RouteMatcherInterface
      */
@@ -32,6 +32,13 @@ class Router implements RouterInterface
     private $request;
 
     /**
+     * the instance of ActionDispatcher
+     *
+     * @var ActionDispatcherInterface
+     */
+    private $actionDispatcher;
+
+    /**
      * Create a new instance and set Request and matcher variables
      *
      * @param Request|null $request
@@ -40,6 +47,7 @@ class Router implements RouterInterface
     {
         $this->setRequest($request);
         $this->setMatcher(new RouteMatcher($this->getRequest()->getUrl()));
+        $this->setActionDispatcher( new ActionDispatcher());
     }
 
     /**
@@ -82,6 +90,29 @@ class Router implements RouterInterface
         return $this;
     }
 
+    /**
+     * return the action dispatcher
+     *
+     * @return ActionDispatcherInterface
+     */
+    public function getActionDispatcher()
+    {
+        return $this->actionDispatcher;
+    }
+
+    /**
+     * Register the action dispatcher
+     *
+     * @param ActionDispatcherInterface $actionDispatcher
+     * @return $this
+     */
+    public function setActionDispatcher(ActionDispatcherInterface $actionDispatcher)
+    {
+        $this->actionDispatcher = $actionDispatcher;
+        return $this;
+    }
+
+
 
     /**
      * Run the router and check requested uri
@@ -107,4 +138,6 @@ class Router implements RouterInterface
             }
         }
     }
+
+
 }

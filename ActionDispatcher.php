@@ -11,7 +11,7 @@
 namespace Anonym\Components\Route;
 
 
-class ActionDispatcher
+class ActionDispatcher implements ActionDispatcherInterface
 {
 
 }
