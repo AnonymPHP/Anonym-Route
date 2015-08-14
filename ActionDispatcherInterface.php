@@ -14,4 +14,11 @@ namespace Anonym\Components\Route;
 interface ActionDispatcherInterface
 {
 
+    /**
+     * Dispatch a action from array
+     *
+     * @param array $action
+     * @return mixed
+     */
+    public function dispatch(array $action = []);
 }
