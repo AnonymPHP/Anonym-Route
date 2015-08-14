@@ -17,4 +17,23 @@ namespace Anonym\Components\Route;
 class Router
 {
 
+    /**
+     * A instance of The RouteMatcherInterface
+     *
+     * @var RouteMatcherInterface
+     */
+    private $matcher;
+
+    /**
+     * The request currently dispatched
+     *
+     * @var Request
+     */
+    private $request;
+
+    public function __construct()
+    {
+
+    }
+
 }
