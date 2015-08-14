@@ -18,6 +18,13 @@ class Router implements RouterInterface
 {
 
     /**
+     * Default namespace of controllers
+     *
+     * @var string
+     */
+    private $namespace = 'Anonym\Controllers\\';
+
+    /**
      * the instance of RouteMatcherInterface
      *
      * @var RouteMatcherInterface
@@ -112,6 +119,27 @@ class Router implements RouterInterface
         return $this;
     }
 
+    /**
+     * return registered namespace
+     *
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
+    }
+
+    /**
+     * register default namespace
+     *
+     * @param string $namespace
+     * @return Router
+     */
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
+        return $this;
+    }
 
 
     /**
@@ -133,7 +161,7 @@ class Router implements RouterInterface
             {
                 if($this->getMatcher()->match($collection['uri']))
                 {
-                    $actionDispatcher = new ActionDispatcher();
+                    $actionDispatcher = new ActionDispatcher($this->getNamespace());
                     $actionDispatcher->dispatch($collection['action']);
                     return true;
                 }

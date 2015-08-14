@@ -28,9 +28,13 @@ class ActionDispatcher implements ActionDispatcherInterface
      */
     private $namespace;
 
+    /**
+     * create a new instance and register the default namespace
+     *
+     * @param string $namespace
+     */
     public function __construct($namespace = '')
     {
-
         $this->namespace = $namespace;
     }
 
@@ -66,6 +70,14 @@ class ActionDispatcher implements ActionDispatcherInterface
      */
     private function createControllerInstance($controller = '')
     {
+        $controllerName = $this->namespace.$controller;
+        $controller = new $controllerName;
 
+        if($controller instanceof Controller)
+        {
+            return $controller;
+        }else{
+            throw new ControllerException(sprintf('%s is not a controller', $controllerName));
+        }
     }
 }
