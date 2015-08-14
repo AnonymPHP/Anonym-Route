@@ -43,11 +43,13 @@ class RouteMatcher
      *
      * @param string $requestedUrl
      * @param string $matchUrl
+     * @param array $filters
      */
-    public function __construct($requestedUrl = '', $matchUrl = '')
+    public function __construct($requestedUrl = '', $matchUrl = '', $filters = [])
     {
         $this->setMatchUrl($matchUrl);
         $this->setRequestedUrl($requestedUrl);
+        $this->setFilters($filters);
     }
 
     /**
@@ -56,13 +58,34 @@ class RouteMatcher
      * @param string $matchUrl
      * @return bool
      */
-    public function match($matchUrl = '')
+    public function match($matchUrl = null)
     {
-        $this->setMatchUrl($matchUrl);
+        if (null !== $matchUrl) {
+            $this->setMatchUrl($matchUrl);
+        }
 
-        
+        if ($this->isUrlEqual()) {
+            return true;
+        }
 
     }
+
+
+    /**
+     *
+     * Urller aynı ise direk döndürüyor
+     *
+     * @return bool
+     */
+    private function isUrlEqual()
+    {
+
+        if ($this->getMatchUrl() === $this->getRequestedUrl()) {
+            return true;
+        }
+
+    }
+
     /**
      * @return string
      */
@@ -78,6 +101,7 @@ class RouteMatcher
      */
     public function setRequestedUrl($requestedUrl)
     {
+        $requestedUrl = trim(str_replace('/', ' ', $requestedUrl));
         $this->requestedUrl = $requestedUrl;
         return $this;
     }
@@ -91,15 +115,58 @@ class RouteMatcher
     }
 
     /**
+     * Eşleştirilecek url i ayarlar
+     *
      * @param string $matchUrl
      * @return RouteMatcher
      */
     public function setMatchUrl($matchUrl)
     {
+        $matchUrl = trim(str_replace('/', ' ', $matchUrl));
         $this->matchUrl = $matchUrl;
         return $this;
     }
 
+    /**
+     * @return array
+     */
+    public function getFilters()
+    {
+        return $this->filters;
+    }
+
+    /**
+     * @param array $filters
+     * @return RouteMatcher
+     */
+    public function setFilters(array $filters)
+    {
+        $this->filters = $filters;
+        return $this;
+    }
+
+    /**
+     * $name ile girilen filter 'ı arar
+     *
+     * @param string $name
+     * @return mixed
+     */
+    public function getFilter($name = '')
+    {
+        return $this->filters[$name];
+    }
+
+    /**
+     * Regex i döndürür
+     *
+     * @param string $url
+     * @return mixed
+     */
+    private function getRegex($url)
+    {
+
+        return preg_replace_callback("/:(\w.*)/", [$this, 'substituteFilter'], $url);
+    }
 
 
 }
