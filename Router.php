@@ -31,12 +31,22 @@ class Router
      */
     private $request;
 
+    /**
+     * Create a new instance and set Request and matcher variables
+     *
+     * @param Request|null $request
+     */
     public function __construct(Request $request = null)
     {
         $this->setRequest($request);
         $this->setMatcher(new RouteMatcher($this->getRequest()->getUrl()));
     }
 
+
+    public function run()
+    {
+
+    }
     /**
      * @return RouteMatcherInterface
      */
@@ -46,6 +56,8 @@ class Router
     }
 
     /**
+     * Set a route matcher instance
+     *
      * @param RouteMatcherInterface $matcher
      * @return Router
      */
@@ -56,6 +68,8 @@ class Router
     }
 
     /**
+     * return a route matcher interface
+     *
      * @return Request
      */
     public function getRequest()
