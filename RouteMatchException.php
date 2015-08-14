@@ -12,6 +12,12 @@
 namespace Anonym\Components\Route;
 use Exception;
 
+/**
+ * the class of route match exception
+ *
+ * Class RouteMatchException
+ * @package Anonym\Components\Route
+ */
 class RouteMatchException extends Exception
 {
 
