@@ -64,12 +64,38 @@ class RouteMatcher
             $this->setMatchUrl($matchUrl);
         }
 
-        if ($this->isUrlEqual()) {
+        if ($this->isUrlEqual() || $this->regexChecker()) {
             return true;
+        }else{
+          return false;
         }
 
     }
 
+    /**
+     *Regex kontrolu yapar
+     *
+     * @return bool
+     */
+    private function regexChecker()
+    {
+
+
+        $regex = $this->getRegex($this->getMatchUrl());
+
+
+        if ($regex !== ' ') {
+            if (preg_match("@" . ltrim($regex) . "@si", $this->getRequestedUrl(), $matches)) {
+                unset($matches[0]);
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+    }
 
     /**
      *
@@ -168,5 +194,13 @@ class RouteMatcher
         return preg_replace_callback("/:(\w.*)/", [$this, 'substituteFilter'], $url);
     }
 
+    /**
+      * @param array $matches
+      * @return string
+      */
+     private function substituteFilter(array $matches = [])
+     {
+         return isset($this->collector->filter[$matches[1]]) ? "({$this->getFilter($matches[1])})" : "([\w-%]+)";
+     }
 
 }
