@@ -21,5 +21,32 @@ class FilterBag
      *
      * @var array
      */
-    private $filters = [];
+    private static $filters = [];
+
+    /**
+     * @return array
+     */
+    public static function getFilters()
+    {
+        return self::$filters;
+    }
+
+    /**
+     * @param array $filters
+     */
+    public static function setFilters($filters)
+    {
+        self::$filters = $filters;
+    }
+
+    /**
+     * Yeni bir filtre ekler
+     *
+     * @param string $name
+     * @param string $value
+     */
+    public static function addFilter($name, $value = '')
+    {
+        static::$filters[$name] = $value;
+    }
 }
