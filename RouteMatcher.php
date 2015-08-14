@@ -18,6 +18,12 @@ class RouteMatcher
 {
 
     /**
+     * Parametre adlarını depolar
+     *
+     * @var array
+     */
+    private $parameters = [];
+    /**
      * Filtreleri toplar
      *
      * @var array
@@ -87,6 +93,7 @@ class RouteMatcher
         if ($regex !== ' ') {
             if (preg_match("@" . ltrim($regex) . "@si", $this->getRequestedUrl(), $matches)) {
                 unset($matches[0]);
+                ParameterBag::setParameters($matches);
                 return true;
             } else {
                 return false;
@@ -200,6 +207,7 @@ class RouteMatcher
       */
      private function substituteFilter(array $matches = [])
      {
+         $this->parameters[] = $matches[1];
          return isset($this->collector->filter[$matches[1]]) ? "({$this->getFilter($matches[1])})" : "([\w-%]+)";
      }
 

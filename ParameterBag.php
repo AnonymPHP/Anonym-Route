@@ -1,5 +1,6 @@
 <?php
 namespace Anonym\Components\Route;
+
 /**
  * Bu Dosya AnonymFramework'e ait bir dosyadır.
  *
@@ -8,16 +9,45 @@ namespace Anonym\Components\Route;
  *
  */
 
-class ParameterBag{
+class ParameterBag
+{
 
-  /**
-   * Parametreleri tutar
-   *
-   * @var array
-   */
-  private static $parameters;
+    /**
+     * Parametreleri tutar
+     *
+     * @var array
+     */
+    private static $parameters;
 
 
+    /**
+     * Parametre eklemesi yapar
+     *
+     * @param string $name
+     * @param string $value
+     */
+    public function addParameter($name, $value = '')
+    {
+        static::$parameters[$name] = $value;
+    }
+    /**
+     * Parametreleri döndürür
+     *
+     * @return array
+     */
+    public static function getParameters()
+    {
+        return self::$parameters;
+    }
 
+    /**
+     * Parametreleri ayarlar
+     *
+     * @param array $parameters
+     */
+    public static function setParameters($parameters)
+    {
+        self::$parameters = $parameters;
+    }
 
 }
