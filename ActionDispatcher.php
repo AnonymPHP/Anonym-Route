@@ -20,7 +20,6 @@ namespace Anonym\Components\Route;
 class ActionDispatcher implements ActionDispatcherInterface
 {
 
-
     /**
      * default namespace of the controllers
      *
@@ -59,13 +58,42 @@ class ActionDispatcher implements ActionDispatcherInterface
         }
 
         $controller = $this->createControllerInstance($controller);
+        $response = $this->callControllerMethod($controller, $method);
 
+
+        $this->handleResponse($response);
+
+    }
+
+    /**
+     * Handler the controller returned value
+     *
+     * @param $response
+     */
+    private function handleResponse($response)
+    {
+
+
+
+    }
+
+    /**
+     * Call the method of controller
+     *
+     * @param Controller $controller the instance of controller
+     * @param string $method the name of a controller method
+     * @return mixed
+     */
+    private function callControllerMethod(Controller $controller, $method)
+    {
+        return call_user_func_array([$controller, $method], ParameterBag::getParameters());
     }
 
     /**
      * Create a new controller instance with controller name
      *
      * @param string $controller the controller name
+     * @throws ControllerException
      * @return Controller
      */
     private function createControllerInstance($controller = '')
