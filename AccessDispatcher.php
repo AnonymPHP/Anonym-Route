@@ -17,7 +17,7 @@ use Anonym\Components\HttpClient\Request;
  * Class AccessDispatcher
  * @package Anonym\Components\Route
  */
-class AccessDispatcher
+class AccessDispatcher implements AccessDispatcherInterface
 {
 
     /**

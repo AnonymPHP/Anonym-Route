@@ -50,6 +50,7 @@ class ActionDispatcher implements ActionDispatcherInterface
         $this->namespace = $namespace;
         AccessBag::setAccesses($access);
         AccessBag::setRequest($request);
+        $this->setAccessDispatcher( new AccessDispatcher());
 
     }
 
