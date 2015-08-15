@@ -11,6 +11,10 @@
 
 namespace Anonym\Components\Route;
 
+use Anonym\Components\HttpClient\Request;
+use Anonym\Components\HttpClient\Response;
+use Anonym\Components\View\ViewExecuteInterface;
+
 /**
  * the class of action dispatcher
  *
@@ -61,7 +65,7 @@ class ActionDispatcher implements ActionDispatcherInterface
         $response = $this->callControllerMethod($controller, $method);
 
 
-        $this->handleResponse($response);
+        return $this->handleResponse($response);
 
     }
 
@@ -69,12 +73,27 @@ class ActionDispatcher implements ActionDispatcherInterface
      * Handler the controller returned value
      *
      * @param $response
+     * @return string|bool
      */
     private function handleResponse($response)
     {
 
+        if($response instanceof ViewExecuteInterface)
+        {
+            $content = $response->execute();
+        }elseif($response instanceof Response)
+        {
+            $content = $response->getContent();
+        }elseif($response instanceof Request)
+        {
+            $content = $response->getResponse()->getContent();
+        }elseif(is_string($response)){
+            $content = $response;
+        }else{
+            $content = false;
+        }
 
-
+        return $content;
     }
 
     /**
