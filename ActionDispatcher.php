@@ -32,18 +32,11 @@ class ActionDispatcher implements ActionDispatcherInterface
     private $namespace;
 
     /**
-     * The all access list
+     * the instance of access dispatcher
      *
-     * @var array
+     * @var AccessDispatcherInterface
      */
-    private $access;
-
-    /**
-     * the instance of current request
-     *
-     * @var Request
-     */
-    private $request;
+    private $accessDispatcher;
 
     /**
      * create a new instance and register the default namespace
@@ -55,8 +48,9 @@ class ActionDispatcher implements ActionDispatcherInterface
     public function __construct($namespace = '', array $access = [], Request $request = null)
     {
         $this->namespace = $namespace;
-        $this->access = $access;
-        $this->request = $request;
+        AccessBag::setAccesses($access);
+        AccessBag::setRequest($request);
+
     }
 
     /**
@@ -68,8 +62,7 @@ class ActionDispatcher implements ActionDispatcherInterface
     public function dispatch($action = [])
     {
 
-        if(is_string($action))
-        {
+        if (is_string($action)) {
             $action = [
                 '_controller' => $action
             ];
@@ -155,35 +148,42 @@ class ActionDispatcher implements ActionDispatcherInterface
         }
     }
 
+
     /**
-     * Process the user access
-     *
-     * @param array $access the content of access
-     * @return bool
+     * @return string
      */
-    private function processAccess(array $access)
+    public function getNamespace()
     {
-        if (is_string($access)) {
-            if (isset($access['name'])) {
-                $name = $access['name'];
-
-                if (isset($this->access[$name])) {
-                    $accessInstance = $this->access[$name];
-                    $accessInstance = new $accessInstance;
-
-                    if ($accessInstance instanceof AccessInterface) {
-
-                        $role = isset($access['role']) ? $access['role'] : '';
-                        $next = isset($access['next']) ? $access['next'] : null;
-                        if ($accessInstance->handle($this->request, $role, $next)) {
-                            return true;
-                        }
-                    }
-                }
-            }
-        }
-
-
-        return false;
+        return $this->namespace;
     }
+
+    /**
+     * @param string $namespace
+     * @return ActionDispatcher
+     */
+    public function setNamespace($namespace)
+    {
+        $this->namespace = $namespace;
+        return $this;
+    }
+
+    /**
+     * @return AccessDispatcherInterface
+     */
+    public function getAccessDispatcher()
+    {
+        return $this->accessDispatcher;
+    }
+
+    /**
+     * @param AccessDispatcherInterface $accessDispatcher
+     * @return ActionDispatcher
+     */
+    public function setAccessDispatcher(AccessDispatcherInterface $accessDispatcher)
+    {
+        $this->accessDispatcher = $accessDispatcher;
+        return $this;
+    }
+
+
 }

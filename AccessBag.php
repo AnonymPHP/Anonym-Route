@@ -10,7 +10,7 @@
 
 
 namespace Anonym\Components\Route;
-
+use Anonym\Components\HttpClient\Request;
 /**
  * the class of access bag
  *
@@ -26,6 +26,13 @@ class AccessBag
      * @var array
      */
     private static $accesses;
+
+    /**
+     * the instance of request
+     *
+     * @var Request
+     */
+    private static $request;
 
     /**
      * return the registered accesses
@@ -46,5 +53,22 @@ class AccessBag
     {
         self::$accesses = $accesses;
     }
+
+    /**
+     * @return Request
+     */
+    public static function getRequest()
+    {
+        return self::$request;
+    }
+
+    /**
+     * @param Request $request
+     */
+    public static function setRequest($request)
+    {
+        self::$request = $request;
+    }
+
 
 }

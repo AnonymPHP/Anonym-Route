@@ -10,7 +10,7 @@
 
 
 namespace Anonym\Components\Route;
-
+use Anonym\Components\HttpClient\Request;
 /**
  * the class of access dispatcher
  *
@@ -28,11 +28,19 @@ class AccessDispatcher
     private $access = [];
 
     /**
+     * the instance of request
+     *
+     * @var Request
+     */
+    private $request;
+
+    /**
      * create a new instance and register the access array
      */
     public function __construct()
     {
         $this->access =  AccessBag::getAccesses();
+        $this->request = AccessBag::getRequest();
     }
 
     /**
