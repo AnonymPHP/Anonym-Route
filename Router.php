@@ -18,6 +18,13 @@ class Router implements RouterInterface
 {
 
     /**
+     * The all access list
+     *
+     * @var array
+     */
+    private $access;
+
+    /**
      * Default namespace of controllers
      *
      * @var string
@@ -141,6 +148,29 @@ class Router implements RouterInterface
         return $this;
     }
 
+    /**
+     * return the registered access list
+     *
+     * @return array
+     */
+    public function getAccess()
+    {
+        return $this->access;
+    }
+
+    /**
+     * Register the access list
+     *
+     * @param array $access
+     * @return Router
+     */
+    public function setAccess(array $access = [])
+    {
+        $this->access = $access;
+        return $this;
+    }
+
+
 
     /**
      * Run the router and check requested uri
@@ -162,7 +192,7 @@ class Router implements RouterInterface
                 if($this->getMatcher()->match($collection['uri']))
                 {
                     $actionDispatcher = new ActionDispatcher($this->getNamespace());
-                    $actionDispatcher->dispatch($collection['action']);
+                    $actionDispatcher->dispatch($collection['action'], $this->getAccess(), $this->getRequest());
                     return true;
                 }
             }

@@ -32,13 +32,30 @@ class ActionDispatcher implements ActionDispatcherInterface
     private $namespace;
 
     /**
+     * The all access list
+     *
+     * @var array
+     */
+    private $access;
+
+    /**
+     * the instance of current request
+     *
+     * @var Request
+     */
+    private $request;
+
+    /**
      * create a new instance and register the default namespace
      *
      * @param string $namespace
+     * @param array $access the list of access
+     * @param Request $request the instance of request
      */
-    public function __construct($namespace = '')
+    public function __construct($namespace = '',array $access = [], Request $request = null)
     {
         $this->namespace = $namespace;
+        $this->access = $access;
     }
 
     /**
@@ -52,16 +69,22 @@ class ActionDispatcher implements ActionDispatcherInterface
         if (isset($action['_controller'])) {
             $controller = $action['_controller'];
 
-            if(strstr($controller,':'))
-            {
+            if (strstr($controller, ':')) {
                 list($controller, $method) = explode(':', $controller);
-            }elseif($action['_method'])
-            {
+            } elseif ($action['_method']) {
                 $method = $action['_method'];
             }
         }
 
-        $access = $action['_access'];
+
+        if (isset($action['_access'])) {
+
+            if (!$this->processAccess($action['_access'])) {
+
+            }
+
+        }
+
         $controller = $this->createControllerInstance($controller);
         $response = $this->callControllerMethod($controller, $method);
 
@@ -78,18 +101,15 @@ class ActionDispatcher implements ActionDispatcherInterface
     private function handleResponse($response)
     {
 
-        if($response instanceof ViewExecuteInterface)
-        {
+        if ($response instanceof ViewExecuteInterface) {
             $content = $response->execute();
-        }elseif($response instanceof Response)
-        {
+        } elseif ($response instanceof Response) {
             $content = $response->getContent();
-        }elseif($response instanceof Request)
-        {
+        } elseif ($response instanceof Request) {
             $content = $response->getResponse()->getContent();
-        }elseif(is_string($response)){
+        } elseif (is_string($response)) {
             $content = $response;
-        }else{
+        } else {
             $content = false;
         }
 
@@ -117,14 +137,39 @@ class ActionDispatcher implements ActionDispatcherInterface
      */
     private function createControllerInstance($controller = '')
     {
-        $controllerName = $this->namespace.$controller;
+        $controllerName = $this->namespace . $controller;
         $controller = new $controllerName;
 
-        if($controller instanceof Controller)
-        {
+        if ($controller instanceof Controller) {
             return $controller;
-        }else{
+        } else {
             throw new ControllerException(sprintf('%s is not a controller', $controllerName));
+        }
+    }
+
+    /**
+     * Process the user access
+     *
+     * @param array $access the content of access
+     * @return bool
+     */
+    private function processAccess(array $access)
+    {
+        if (is_string($access)) {
+            if (isset($access['name'])) {
+                $name = $access['name'];
+
+                if (isset($this->access[$name])) {
+                    $access = $this->access[$name];
+                    $access = new $access;
+                }
+            }
+        }
+
+        if($access instanceof AccessInterface)
+        {
+
+            if($access->handle())
         }
     }
 }
