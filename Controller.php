@@ -11,10 +11,14 @@
 
 namespace Anonym\Components\Route;
 
-
+/**
+ * the parent class of controllers
+ *
+ * Class Controller
+ * @package Anonym\Components\Route
+ */
 class Controller
 {
-
-
+    use Middleware;
 
 }

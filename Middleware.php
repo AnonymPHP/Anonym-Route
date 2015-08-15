@@ -31,6 +31,7 @@ trait Middleware
      * check's the user authority
      *
      * @param string $name the middleware name
+     * @throws MiddlewareException
      * @return bool
      */
     public function middleware($name = '')
@@ -43,8 +44,10 @@ trait Middleware
 
         if(true !== $middleware)
         {
-
+            throw new MiddlewareException('You can\'t access here, your authority is incorrect');
         }
+
+        return true;
     }
 
 }
