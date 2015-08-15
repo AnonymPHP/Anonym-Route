@@ -47,3 +47,22 @@ $router->run();
 
 ```
 
+How can i add a middleware?
+--------------------------
+
+```php
+
+$collector->get('/', ['_middleware' => ['name' => 'middlewarename', 'role' => 'aaa', 'next' => function(){}]]);
+
+```
+
+How can i add a middleware in a controller?
+----------------------------------------
+
+```php
+
+public function __construct(){
+  $this->middleware('middlewarename');
+}
+
+```

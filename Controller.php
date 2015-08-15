@@ -20,5 +20,4 @@ namespace Anonym\Components\Route;
 class Controller
 {
     use Middleware;
-
 }
