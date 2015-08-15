@@ -20,4 +20,31 @@ namespace Anonym\Components\Route;
 trait Middleware
 {
 
+    /**
+     * the instance of access dispatcher
+     *
+     * @var AccessDispatcherInterface
+     */
+    private $accessDispatcher;
+
+    /**
+     * check's the user authority
+     *
+     * @param string $name the middleware name
+     * @return bool
+     */
+    public function middleware($name = '')
+    {
+        if (!$this->accessDispatcher) {
+            $this->accessDispatcher = new AccessDispatcher();
+        }
+
+        $middleware =  $this->accessDispatcher->process($name);
+
+        if(true !== $middleware)
+        {
+
+        }
+    }
+
 }

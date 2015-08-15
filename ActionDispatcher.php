@@ -79,7 +79,7 @@ class ActionDispatcher implements ActionDispatcherInterface
             }
         }
 
-        if (isset($action['_access'])) {
+        if (isset($action['_middleware'])) {
 
             if (false === $this->getAccessDispatcher()->process($action['_access'])) {
                 return false;
