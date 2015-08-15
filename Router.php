@@ -22,7 +22,7 @@ class Router implements RouterInterface
      *
      * @var array
      */
-    private $access;
+    private $access = [];
 
     /**
      * Default namespace of controllers
@@ -61,7 +61,7 @@ class Router implements RouterInterface
     {
         $this->setRequest($request);
         $this->setMatcher(new RouteMatcher($this->getRequest()->getUrl()));
-        $this->setActionDispatcher( new ActionDispatcher());
+        $this->setActionDispatcher( new ActionDispatcher($this->getNamespace(), $this->getAccess(), $this->getRequest()));
     }
 
     /**
@@ -171,7 +171,6 @@ class Router implements RouterInterface
     }
 
 
-
     /**
      * Run the router and check requested uri
      *
@@ -191,8 +190,7 @@ class Router implements RouterInterface
             {
                 if($this->getMatcher()->match($collection['uri']))
                 {
-                    $actionDispatcher = new ActionDispatcher($this->getNamespace());
-                    $actionDispatcher->dispatch($collection['action'], $this->getAccess(), $this->getRequest());
+                    $this->getActionDispatcher()->dispatch($collection['action']);
                     return true;
                 }
             }

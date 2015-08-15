@@ -47,7 +47,7 @@ class RouteCollector
         foreach($types as $type)
         {
             $type = mb_convert_case($type, MB_CASE_UPPER);
-            static::$routes[$type] = [
+            static::$routes[$type][] = [
                 'uri' => $uri,
                 'action' => $action
             ];

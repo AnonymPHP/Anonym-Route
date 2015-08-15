@@ -62,11 +62,19 @@ class ActionDispatcher implements ActionDispatcherInterface
     /**
      * Dispatch a action from array
      *
-     * @param array $action
+     * @param array|string $action
      * @return mixed
      */
-    public function dispatch(array $action = [])
+    public function dispatch($action = [])
     {
+
+        if(is_string($action))
+        {
+            $action = [
+                '_controller' => $action
+            ];
+        }
+
         if (isset($action['_controller'])) {
             $controller = $action['_controller'];
 
@@ -76,7 +84,6 @@ class ActionDispatcher implements ActionDispatcherInterface
                 $method = $action['_method'];
             }
         }
-
 
         if (isset($action['_access'])) {
 

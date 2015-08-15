@@ -25,7 +25,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Anonym\\Components\\Route\\": ""
+      "Anonym\\Components\\Route\\": "",
+      "Anonym\\Controllers\\":"controllers/"
     }
   },
   "extra": {

@@ -13,18 +13,17 @@ class ParameterBag
 {
 
     /**
-     * Parametreleri tutar
+     * Store the parameters
      *
      * @var array
      */
-    private static $parameters;
-
+    private static $parameters = [];
 
     /**
-     * Parametre eklemesi yapar
+     * add a parameter with name and value
      *
-     * @param string $name
-     * @param string $value
+     * @param string $name the name of parameter
+     * @param string $value the value of parameter
      */
     public function addParameter($name, $value = '')
     {
