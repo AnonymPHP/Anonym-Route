@@ -11,9 +11,11 @@
 
 namespace Anonym\Components\Route;
 
-
-class Controller
+/**
+ * Class AccessDispatcher
+ * @package Anonym\Components\Route
+ */
+class AccessDispatcher
 {
-
 
 }
