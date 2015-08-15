@@ -163,18 +163,19 @@ class ActionDispatcher implements ActionDispatcherInterface
                 if (isset($this->access[$name])) {
                     $accessInstance = $this->access[$name];
                     $accessInstance = new $accessInstance;
+
+                    if ($accessInstance instanceof AccessInterface) {
+
+                        $role = isset($access['role']) ? $access['role'] : '';
+                        $next = isset($access['next']) ? $access['next'] : null;
+                        if ($accessInstance->handle($this->request, $role, $next)) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
 
-        if ($accessInstance instanceof AccessInterface) {
-
-            $role = isset($access['role']) ? $access['role'] : '';
-            $next = isset($access['next']) ? $access['next'] : null;
-            if ($accessInstance->handle($this->request, $role, $next)) {
-                return true;
-            }
-        }
 
         return false;
     }
