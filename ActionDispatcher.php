@@ -61,9 +61,9 @@ class ActionDispatcher implements ActionDispatcherInterface
             }
         }
 
+        $access = $action['_access'];
         $controller = $this->createControllerInstance($controller);
         $response = $this->callControllerMethod($controller, $method);
-
 
         return $this->handleResponse($response);
 
