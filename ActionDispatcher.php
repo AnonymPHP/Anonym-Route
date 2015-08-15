@@ -52,10 +52,11 @@ class ActionDispatcher implements ActionDispatcherInterface
      * @param array $access the list of access
      * @param Request $request the instance of request
      */
-    public function __construct($namespace = '',array $access = [], Request $request = null)
+    public function __construct($namespace = '', array $access = [], Request $request = null)
     {
         $this->namespace = $namespace;
         $this->access = $access;
+        $this->request = $request;
     }
 
     /**
@@ -79,8 +80,8 @@ class ActionDispatcher implements ActionDispatcherInterface
 
         if (isset($action['_access'])) {
 
-            if (!$this->processAccess($action['_access'])) {
-
+            if (false === $this->processAccess($action['_access'])) {
+                return false;
             }
 
         }
@@ -160,16 +161,21 @@ class ActionDispatcher implements ActionDispatcherInterface
                 $name = $access['name'];
 
                 if (isset($this->access[$name])) {
-                    $access = $this->access[$name];
-                    $access = new $access;
+                    $accessInstance = $this->access[$name];
+                    $accessInstance = new $accessInstance;
                 }
             }
         }
 
-        if($access instanceof AccessInterface)
-        {
+        if ($accessInstance instanceof AccessInterface) {
 
-            if($access->handle())
+            $role = isset($access['role']) ? $access['role'] : '';
+            $next = isset($access['next']) ? $access['next'] : null;
+            if ($accessInstance->handle($this->request, $role, $next)) {
+                return true;
+            }
         }
+
+        return false;
     }
 }
