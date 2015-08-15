@@ -72,7 +72,7 @@ class ActionDispatcher implements ActionDispatcherInterface
     /**
      * Handler the controller returned value
      *
-     * @param $response
+     * @param ViewExecuteInterface|Response|Request|string $response
      * @return string|bool
      */
     private function handleResponse($response)
