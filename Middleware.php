@@ -11,10 +11,13 @@
 
 namespace Anonym\Components\Route;
 
-
-class Controller
+/**
+ * the trait of middleware
+ *
+ * Trait Middleware
+ * @package Anonym\Components\Route
+ */
+trait Middleware
 {
-
-
 
 }
