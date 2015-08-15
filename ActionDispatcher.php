@@ -81,7 +81,7 @@ class ActionDispatcher implements ActionDispatcherInterface
 
         if (isset($action['_access'])) {
 
-            if (false === $this->processAccess($action['_access'])) {
+            if (false === $this->getAccessDispatcher()->process($action['_access'])) {
                 return false;
             }
 
