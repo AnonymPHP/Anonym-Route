@@ -12,10 +12,56 @@
 namespace Anonym\Components\Route;
 
 /**
+ * the class of access dispatcher
+ *
  * Class AccessDispatcher
  * @package Anonym\Components\Route
  */
 class AccessDispatcher
 {
+
+    /**
+     * to store the complate list of registered access classes
+     *
+     * @var array
+     */
+    private $access = [];
+
+    /**
+     * create a new instance and register the access array
+     */
+    public function __construct()
+    {
+        $this->access =  AccessBag::getAccesses();
+    }
+
+    /**
+     * Process the array
+     *
+     * @param string $access the array of route access
+     * @return bool
+     */
+    public function process($access = '')
+    {
+        if (is_string($access)) {
+            if (isset($access['name'])) {
+                $name = $access['name'];
+
+                if (isset($this->access[$name])) {
+                    $accessInstance = $this->access[$name];
+                    $accessInstance = new $accessInstance;
+
+                    if ($accessInstance instanceof AccessInterface) {
+
+                        $role = isset($access['role']) ? $access['role'] : '';
+                        $next = isset($access['next']) ? $access['next'] : null;
+                        if ($accessInstance->handle($this->request, $role, $next)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
 }
