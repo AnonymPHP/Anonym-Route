@@ -70,7 +70,7 @@ public function __construct(){
 How can i create a Controller
 --------------------------
 
-add this to composer.json
+add it to composer.json
 ```php
 
 "Anonym\Controllers": "path"
