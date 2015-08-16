@@ -66,3 +66,27 @@ public function __construct(){
 }
 
 ```
+
+How can i create a Controller
+--------------------------
+
+add this to composer.json
+```php
+
+"Anonym\Controllers": "path"
+
+```
+
+and create controller in the "path"
+
+```php
+
+use Anonym\Components\Route\Controller;
+
+class Test extends Controller{
+
+   // do nothing
+
+}
+
+```
