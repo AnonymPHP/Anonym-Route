@@ -202,6 +202,26 @@ class RouteMatcher implements RouteMatcherInterface
     }
 
     /**
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @param array $parameters
+     * @return RouteMatcher
+     */
+    public function setParameters($parameters)
+    {
+        $this->parameters = $parameters;
+        return $this;
+    }
+
+
+
+    /**
       * @param array $matches
       * @return string
       */
