@@ -58,9 +58,7 @@ class RouteCollector
                 'action' => $action
             ];
         }
-
         return $this;
-
     }
 
     /**
