@@ -40,8 +40,14 @@ class RouteCollector
      * @param array $action
      * @return $this
      */
-    private function addRoute($types = '',$uri,array $action = [])
+    private function addRoute($types = '',$uri, $action = [])
     {
+
+        if(is_string($action))
+        {
+            $action = ['_controller' => $action];
+        }
+
         $types = (array) $types;
 
         foreach($types as $type)
