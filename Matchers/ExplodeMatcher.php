@@ -13,6 +13,10 @@ namespace Anonym\Components\Route\Matchers;
 
 use Anonym\Components\Route\RouteMatcher;
 
+/**
+ * Class ExplodeMatcher
+ * @package Anonym\Components\Route\Matchers
+ */
 class ExplodeMatcher extends RouteMatcher implements MatcherInterface
 {
 
