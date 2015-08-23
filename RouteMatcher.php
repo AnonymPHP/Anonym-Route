@@ -80,7 +80,7 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
             $this->setMatchUrl($matchUrl);
         }
 
-        if ($this->isUrlEqual() || $this->regexChecker()) {
+        if ($this->isUrlEqual() || $this->getMatcher()->match()) {
             return true;
         }else{
           return false;
