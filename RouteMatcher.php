@@ -191,8 +191,24 @@ class RouteMatcher implements RouteMatcherInterface
         return $this;
     }
 
+    /**
+     * @return MatcherInterface
+     */
+    public function getMatcher()
+    {
+        return $this->matcher;
+    }
 
-
+    /**
+     * @param MatcherInterface $matcher
+     * @return RouteMatcher
+     */
+    public function setMatcher($matcher)
+    {
+        $this->matcher = $matcher;
+        return $this;
+    }
 
 
 }
+

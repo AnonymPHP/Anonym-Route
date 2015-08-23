@@ -14,7 +14,7 @@ namespace Anonym\Components\Route\Matchers;
 use Anonym\Components\Route\RouteMatcher;
 use Anonym\Components\Route\ParameterBag;
 
-class RegexChecker extends RouteMatcher
+class RegexChecker extends RouteMatcher implements MatcherInterface
 {
 
     /**
