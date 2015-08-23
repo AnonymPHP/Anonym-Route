@@ -14,6 +14,7 @@ namespace Anonym\Components\Route;
 use Anonym\Components\HttpClient\Request;
 use Anonym\Components\HttpClient\Response;
 use Anonym\Components\View\ViewExecuteInterface;
+use Closure;
 
 /**
  * the class of action dispatcher
@@ -69,28 +70,34 @@ class ActionDispatcher implements ActionDispatcherInterface
             ];
         }
 
-        if (isset($action['_controller'])) {
-            $controller = $action['_controller'];
+        if(is_array($action))
+        {
+            if (isset($action['_controller'])) {
+                $controller = $action['_controller'];
 
-            if (strstr($controller, ':')) {
-                list($controller, $method) = explode(':', $controller);
-            } elseif ($action['_method']) {
-                $method = $action['_method'];
-            }
-        }
-
-        if (isset($action['_middleware'])) {
-
-            if (false === $this->getAccessDispatcher()->process($action['_access'])) {
-                return false;
+                if (strstr($controller, ':')) {
+                    list($controller, $method) = explode(':', $controller);
+                } elseif ($action['_method']) {
+                    $method = $action['_method'];
+                }
             }
 
+            if (isset($action['_middleware'])) {
+
+                if (false === $this->getAccessDispatcher()->process($action['_access'])) {
+                    return false;
+                }
+
+            }
+
+            $controller = $this->createControllerInstance($controller);
+            $response = $this->callControllerMethod($controller, $method);
+            return $this->handleResponse($response);
+        }elseif($action instanceof Closure){
+            return $this->handleResponse(call_user_func_array($action, ParameterBag::getParameters()));
         }
 
-        $controller = $this->createControllerInstance($controller);
-        $response = $this->callControllerMethod($controller, $method);
 
-        return $this->handleResponse($response);
 
     }
 
