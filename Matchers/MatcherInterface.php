@@ -10,8 +10,18 @@
 
 namespace Anonym\Components\Route\Matchers;
 
-
+/**
+ * Interface MatcherInterface
+ * @package Anonym\Components\Route\Matchers
+ */
 interface MatcherInterface
 {
+
+    /**
+     *make the match
+     *
+     * @return bool
+     */
+    public function match();
 
 }
