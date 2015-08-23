@@ -11,7 +11,7 @@
 namespace Anonym\Components\Route\Matchers;
 
 
-class MatcherInterface
+interface MatcherInterface
 {
 
 }
