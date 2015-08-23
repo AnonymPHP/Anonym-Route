@@ -34,7 +34,7 @@ class RegexChecker extends RouteMatcher
      *
      * @return bool
      */
-    public function regexChecker()
+    public function match()
     {
 
 
