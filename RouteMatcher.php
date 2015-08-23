@@ -65,6 +65,7 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
         $this->setMatchUrl($matchUrl);
         $this->setRequestedUrl($requestedUrl);
         $this->setFilters($filters);
+
     }
 
     /**
