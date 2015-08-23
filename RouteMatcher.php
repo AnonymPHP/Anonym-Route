@@ -10,11 +10,13 @@
 
 namespace Anonym\Components\Route;
 
+use Anonym\Components\Route\Matchers\MatcherInterface;
+
 /**
  * Class RouteMatcher
  * @package Anonym\Components\Route
  */
-class RouteMatcher implements RouteMatcherInterface
+class RouteMatcher implements RouteMatcherInterface, MatcherInterface
 {
 
     /**
@@ -203,7 +205,7 @@ class RouteMatcher implements RouteMatcherInterface
      * @param MatcherInterface $matcher
      * @return RouteMatcher
      */
-    public function setMatcher($matcher)
+    public function setMatcher(MatcherInterface $matcher)
     {
         $this->matcher = $matcher;
         return $this;
