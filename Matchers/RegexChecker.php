@@ -18,6 +18,18 @@ class RegexChecker extends RouteMatcher
 {
 
     /**
+     * Eþleþtirilecek ve eþleþmesi gerek url i ayarlar
+     *
+     * @param string $requestedUrl
+     * @param string $matchUrl
+     * @param array $filters
+     */
+    public function __construct($requestedUrl = '', $matchUrl = '', $filters = [])
+    {
+        parent::__construct($requestedUrl, $matchUrl, $filters);
+    }
+
+    /**
      *Regex kontrolu yapar
      *
      * @return bool
