@@ -22,20 +22,20 @@ class RouteMatcher implements RouteMatcherInterface
      *
      * @var array
      */
-    private $parameters = [];
+    protected $parameters = [];
     /**
      * Filtreleri toplar
      *
      * @var array
      */
-    private $filters;
+    protected $filters;
 
     /**
      * Çağrılan url i getirir
      *
      * @var string
      */
-    private $requestedUrl;
+    protected $requestedUrl;
 
     /**
      * Eşleştirilecek url i tutar
@@ -78,31 +78,6 @@ class RouteMatcher implements RouteMatcherInterface
 
     }
 
-    /**
-     *Regex kontrolu yapar
-     *
-     * @return bool
-     */
-    private function regexChecker()
-    {
-
-
-        $regex = $this->getRegex($this->getMatchUrl());
-
-
-        if ($regex !== ' ') {
-            if (preg_match("@" . ltrim($regex) . "@si", $this->getRequestedUrl(), $matches)) {
-                unset($matches[0]);
-                ParameterBag::setParameters($matches);
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-
-    }
 
     /**
      *
@@ -189,17 +164,7 @@ class RouteMatcher implements RouteMatcherInterface
         return $this->filters[$name];
     }
 
-    /**
-     * Regex i döndürür
-     *
-     * @param string $url
-     * @return mixed
-     */
-    private function getRegex($url)
-    {
 
-        return preg_replace_callback("/:(\w.*)/", [$this, 'substituteFilter'], $url);
-    }
 
     /**
      * @return array
@@ -221,14 +186,6 @@ class RouteMatcher implements RouteMatcherInterface
 
 
 
-    /**
-      * @param array $matches
-      * @return string
-      */
-     private function substituteFilter(array $matches = [])
-     {
-         $this->parameters[] = $matches[1];
-         return isset($this->collector->filter[$matches[1]]) ? "({$this->getFilter($matches[1])})" : "([\w-%]+)";
-     }
+
 
 }
