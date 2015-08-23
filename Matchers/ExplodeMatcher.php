@@ -11,7 +11,18 @@
 namespace Anonym\Components\Route\Matchers;
 
 
-class ExplodeMatcher
+use Anonym\Components\Route\RouteMatcher;
+
+class ExplodeMatcher extends RouteMatcher implements MatcherInterface
 {
 
+    /**
+     *make the match
+     *
+     * @return bool
+     */
+    public function match()
+    {
+
+    }
 }
