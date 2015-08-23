@@ -20,6 +20,8 @@ use Anonym\Components\Route\RouteMatcher;
 class ExplodeMatcher extends RouteMatcher implements MatcherInterface
 {
 
+
+    private $explodeWith = ' ';
     /**
      *make the match
      *
@@ -28,5 +30,26 @@ class ExplodeMatcher extends RouteMatcher implements MatcherInterface
     public function match()
     {
 
+
     }
+
+    /**
+     * @return string
+     */
+    public function getExplodeWith()
+    {
+        return $this->explodeWith;
+    }
+
+    /**
+     * @param string $explodeWith
+     * @return ExplodeMatcher
+     */
+    public function setExplodeWith($explodeWith)
+    {
+        $this->explodeWith = $explodeWith;
+        return $this;
+    }
+
+
 }
