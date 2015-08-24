@@ -8,13 +8,6 @@
  */
 
 include 'vendor/autoload.php';
-use Anonym\Components\Route\RouteCollector;
-use Anonym\Components\Route\Router;
-use Anonym\Components\HttpClient\Request;
-$collector = new RouteCollector();
-$collector->get('/', [
-    '_controller' =>  'Test::a'
-]);
 
-$route = new Router(new Request());
-$route->run();
+$matcher  = new \Anonym\Components\Route\Matchers\ExplodeMatcher('/test', '/{{test}}');
+$matcher->match();

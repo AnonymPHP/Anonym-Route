@@ -17,10 +17,14 @@ use Anonym\Components\Route\RouteMatcher;
  * Class ExplodeMatcher
  * @package Anonym\Components\Route\Matchers
  */
-class ExplodeMatcher extends RouteMatcher implements MatcherInterface
+class NewMatcher extends RouteMatcher implements MatcherInterface
 {
 
-
+    /**
+     * the delimeter of explode
+     *
+     * @var string
+     */
     private $explodeWith = ' ';
 
     /**
@@ -42,28 +46,6 @@ class ExplodeMatcher extends RouteMatcher implements MatcherInterface
      */
     public function match()
     {
-        $requestedExplode = explode($this->getExplodeWith(), $this->getRequestedUrl());
-        $matchedExplode = explode($this->getExplodeWith(), $this->getMatchUrl());
 
     }
-
-    /**
-     * @return string
-     */
-    public function getExplodeWith()
-    {
-        return $this->explodeWith;
-    }
-
-    /**
-     * @param string $explodeWith
-     * @return ExplodeMatcher
-     */
-    public function setExplodeWith($explodeWith)
-    {
-        $this->explodeWith = $explodeWith;
-        return $this;
-    }
-
-
 }
