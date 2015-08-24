@@ -11,7 +11,7 @@
 namespace Anonym\Components\Route;
 
 
-class ControllerDispatcher
+class ControllerDispatcher implements ControllerDispatcherInterface
 {
 
     /**

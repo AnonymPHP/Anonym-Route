@@ -14,7 +14,7 @@ namespace Anonym\Components\Route;
  * Interface ControllerDispatcherInterface
  * @package Anonym\Components\Route
  */
-interface ControllerDispatcherInterface extends AccessDispatcherInterface
+interface ControllerDispatcherInterface extends ActionDispatcherInterface
 {
 
     //
