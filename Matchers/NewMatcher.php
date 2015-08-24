@@ -96,10 +96,6 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
             $cln = $cleaned[$i];
             $rex = isset($requestedEx[$i]) ? $requestedEx[$i] : null;
 
-            if (!preg_match($this->getRegexSchema(), $orj)) {
-                $replaced[] = $rex;
-            }
-
             if (strpos($cln, '!')) {
                 if (null === $rex) {
                     return false;
@@ -108,13 +104,13 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
                 }
             }
 
+            // check the parameter
             if (strpos($cln, '?')) {
                 if (null !== $rex) {
                     $replaced[] = $rex;
                 }
             }
         }
-
         return $replaced;
     }
 
