@@ -17,5 +17,10 @@ namespace Anonym\Components\Route;
 interface ControllerDispatcherInterface
 {
 
-
+    /**
+     * dispatch the controller
+     *
+     * @return \Anonym\Components\Route\Controller
+     */
+    public function dispatch();
 }
