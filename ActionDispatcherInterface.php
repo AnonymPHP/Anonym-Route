@@ -22,7 +22,7 @@ interface ActionDispatcherInterface
     /**
      * Dispatch a action from array
      *
-     * @param string $action
+     * @param array $action
      * @return mixed
      */
     public function dispatch($action = []);
