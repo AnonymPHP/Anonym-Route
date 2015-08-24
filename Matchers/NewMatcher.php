@@ -67,9 +67,50 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
 
         if (preg_match_all($this->regexSchema, $this->getMatchUrl(), $matches)) {
             list($orjinals, $cleaned) = $matches;
+            $requestEx = explode(' ', $this->getRequestedUrl());
+            $matched = explode(' ', $this->getMatchUrl());
+
+            $replaced = $this->findAndReplaceParameters($orjinals, $cleaned, $requestEx);
+        }
+    }
+
+    /**
+     * find and replace parameters
+     *
+     * @param array $orjinal
+     * @param array $cleaned
+     * @param array $requestedEx
+     * @return array
+     */
+    private function findAndReplaceParameters(array $orjinal, array $cleaned, array $requestedEx)
+    {
+        for($i = 0; $i <= count($orjinal), $i++)
+        {
+            $orj = $orjinal[$i];
+            $cln = $cleaned[$i];
+            $rex = $requestedEx[$i];
+
 
         }
-
     }
+
+    /**
+     * @return string
+     */
+    public function getRegexSchema()
+    {
+        return $this->regexSchema;
+    }
+
+    /**
+     * @param string $regexSchema
+     * @return NewMatcher
+     */
+    public function setRegexSchema($regexSchema)
+    {
+        $this->regexSchema = $regexSchema;
+        return $this;
+    }
+
 
 }
