@@ -75,7 +75,6 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
             if (false !== $replaced) {
 
             }
-
         }
     }
 
