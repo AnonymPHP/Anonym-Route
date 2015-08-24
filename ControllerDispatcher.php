@@ -9,7 +9,7 @@
  */
 
 namespace Anonym\Components\Route;
-
+use Anonym\Components\Route\ControllerException;
 
 class ControllerDispatcher implements ControllerDispatcherInterface
 {
@@ -39,6 +39,7 @@ class ControllerDispatcher implements ControllerDispatcherInterface
     /**
      * dispatch the controller
      *
+     * @throws ControllerException
      * @return \Anonym\Components\Route\Controller
      */
     public function dispatch()
@@ -50,6 +51,8 @@ class ControllerDispatcher implements ControllerDispatcherInterface
         if($controller instanceof Controller)
         {
 
+        }else{
+            throw new ControllerException(sprintf('%s is not a controller', $controllerName));
         }
     }
 }
