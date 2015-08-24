@@ -17,7 +17,14 @@ namespace Anonym\Components\Route;
  * Class Controller
  * @package Anonym\Components\Route
  */
-class Controller
+abstract class Controller
 {
     use Middleware;
+
+    /**
+     * repository of parameters
+     *
+     * @var array
+     */
+    private $parameters;
 }
