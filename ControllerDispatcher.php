@@ -9,8 +9,11 @@
  */
 
 namespace Anonym\Components\Route;
-use Anonym\Components\Route\ControllerException;
 
+/**
+ * Class ControllerDispatcher
+ * @package Anonym\Components\Route
+ */
 class ControllerDispatcher implements ControllerDispatcherInterface
 {
 
