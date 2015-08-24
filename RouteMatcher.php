@@ -54,6 +54,7 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
      * @var MatcherInterface
      */
     private $matcher;
+
     /**
      * Eşleştirilecek ve eşleşmesi gerek url i ayarlar
      *
@@ -66,7 +67,7 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
         $this->setMatchUrl($matchUrl);
         $this->setRequestedUrl($requestedUrl);
         $this->setFilters($filters);
-         $this->setMatcher( new NewMatcher($requestedUrl, $matchUrl, $filters));
+        $this->setMatcher(new NewMatcher($requestedUrl, $matchUrl, $filters));
 
     }
 
@@ -84,8 +85,8 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
 
         if ($this->isUrlEqual() || $this->getMatcher()->match()) {
             return true;
-        }else{
-          return false;
+        } else {
+            return false;
         }
 
     }
@@ -175,7 +176,6 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
     {
         return $this->filters[$name];
     }
-
 
 
     /**
