@@ -51,6 +51,7 @@ class ControllerDispatcher implements ControllerDispatcherInterface
         if($controller instanceof Controller)
         {
             $controller->setParameters(ParameterBag::getParameters());
+            return $controller;
         }else{
             throw new ControllerException(sprintf('%s is not a controller', $name));
         }
