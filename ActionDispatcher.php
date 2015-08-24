@@ -146,7 +146,6 @@ class ActionDispatcher implements ActionDispatcherInterface
      */
     private function createControllerInstance($controller = '')
     {
-        $controllerName = $this->namespace . $controller;
         $controller = new ControllerDispatcher($this->getNamespace(), $controller);
 
         if ($controller instanceof Controller) {
