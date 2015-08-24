@@ -98,11 +98,12 @@ class ActionDispatcher implements ActionDispatcherInterface
             // call the method
             $response = $this->callControllerMethod($controller, $method);
             return $this->handleResponse($response);
+
         } elseif ($action instanceof Closure) {
             return $this->handleResponse(call_user_func_array($action, ParameterBag::getParameters()));
+        } else {
+            return false;
         }
-
-
     }
 
     /**
