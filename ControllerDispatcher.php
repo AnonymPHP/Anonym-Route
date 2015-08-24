@@ -47,8 +47,10 @@ class ControllerDispatcher implements ControllerDispatcherInterface
      */
     public function dispatch()
     {
-        $name = $this->namespace . $this->class;
 
+        $name = $this->generateClassName($this->namespace, $this->class);
+
+        // the controller instance
         $controller = new $name;
 
         if($controller instanceof Controller)
@@ -58,5 +60,28 @@ class ControllerDispatcher implements ControllerDispatcherInterface
         }else{
             throw new ControllerException(sprintf('%s is not a controller', $name));
         }
+    }
+
+    /**
+     * generate the full class name
+     *
+     * @param string $namespace
+     * @param string $class
+     * @return string
+     */
+    private function generateClassName($namespace = '', $class = '')
+    {
+        return $this->resolveNamespacePath($namespace).$class;
+    }
+
+    /**
+     * resolve the namespace path
+     *
+     * @param string $namespace
+     * @return string
+     */
+    private function resolveNamespacePath($namespace = '')
+    {
+
     }
 }
