@@ -102,13 +102,13 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
                 } else {
                     $replaced[] = $rex;
                 }
-            }
-
-            // check the parameter
-            if (strpos($cln, '?')) {
+            } // check the parameter
+            elseif (strpos($cln, '?')) {
                 if (null !== $rex) {
                     $replaced[] = $rex;
                 }
+            } else {
+                $replaced[] = $rex;
             }
         }
         return $replaced;
