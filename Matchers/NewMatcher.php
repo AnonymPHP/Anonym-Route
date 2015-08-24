@@ -71,6 +71,11 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
             $matched = explode(' ', $this->getMatchUrl());
 
             $replaced = $this->findAndReplaceParameters($orjinals, $cleaned, $requestEx);
+
+            if (false !== $replaced) {
+
+            }
+
         }
     }
 
@@ -80,18 +85,39 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
      * @param array $orjinal
      * @param array $cleaned
      * @param array $requestedEx
-     * @return array
+     * @return array|bool
      */
     private function findAndReplaceParameters(array $orjinal, array $cleaned, array $requestedEx)
     {
-        for($i = 0; $i <= count($orjinal), $i++)
-        {
+
+        $replaced = [];
+
+
+        for ($i = 0; $i < count($orjinal); $i++) {
             $orj = $orjinal[$i];
             $cln = $cleaned[$i];
-            $rex = $requestedEx[$i];
+            $rex = isset($requestedEx[$i]) ? $requestedEx[$i] : null;
 
+            if (!preg_match($this->getRegexSchema(), $orj)) {
+                $replaced[] = $rex;
+            }
 
+            if (strpos($cln, '!')) {
+                if (null === $rex) {
+                    return false;
+                } else {
+                    $replaced[] = $rex;
+                }
+            }
+
+            if (strpos($cln, '?')) {
+                if (null !== $rex) {
+                    $replaced[] = $rex;
+                }
+            }
         }
+
+        return $replaced;
     }
 
     /**
