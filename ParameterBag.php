@@ -23,7 +23,7 @@ class ParameterBag
      * add a parameter with name and value
      *
      * @param string $name the name of parameter
-     * @param string $value the value of parameter
+     * @param mixed $value the value of parameter, can be anything
      */
     public function addParameter($name, $value = '')
     {
