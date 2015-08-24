@@ -96,6 +96,8 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
             $rex = isset($requestedEx[$i]) ? $requestedEx[$i] : null;
 
             $fullcln = str_replace(['?', '!'], '', $cln);
+
+            // check the filters
             if($filter = $this->getFilter($fullcln))
             {
                 if(!preg_match('@'. $filter. '@si', $rex))
@@ -104,17 +106,18 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
                 }
             }
 
+            // is it a required parameter ?
             if (strpos($cln, '!')) {
                 if (null === $rex) {
                     return false;
                 } else {
                     $replaced[] = $rex;
                 }
-            } // check the parameter
+            } // is it a optional paramater ?
             elseif (strpos($cln, '?')) {
                 if (null !== $rex) {
                     $replaced[] = $rex;
-                }
+                } // fuck off! all the same :)
             } else {
                 $replaced[] = $rex;
             }
