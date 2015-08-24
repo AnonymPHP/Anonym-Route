@@ -22,6 +22,19 @@ class ExplodeMatcher extends RouteMatcher implements MatcherInterface
 
 
     private $explodeWith = ' ';
+
+    /**
+     * Eþleþtirilecek ve eþleþmesi gerek url i ayarlar
+     *
+     * @param string $requestedUrl
+     * @param string $matchUrl
+     * @param array $filters
+     */
+    public function __construct($requestedUrl = '', $matchUrl = '', $filters = [])
+    {
+        parent::__construct($requestedUrl, $matchUrl, $filters);
+    }
+
     /**
      *make the match
      *
@@ -29,7 +42,8 @@ class ExplodeMatcher extends RouteMatcher implements MatcherInterface
      */
     public function match()
     {
-
+        $requestedExplode = explode($this->getExplodeWith(), $this->getRequestedUrl());
+        $matchedExplode = explode($this->getExplodeWith(), $this->getMatchUrl());
 
     }
 
