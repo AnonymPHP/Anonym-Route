@@ -11,6 +11,7 @@
 namespace Anonym\Components\Route;
 
 use Anonym\Components\Route\Matchers\MatcherInterface;
+use Anonym\Components\Route\Matchers\NewMatcher;
 
 /**
  * Class RouteMatcher
@@ -65,6 +66,7 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
         $this->setMatchUrl($matchUrl);
         $this->setRequestedUrl($requestedUrl);
         $this->setFilters($filters);
+         $this->setMatcher( new NewMatcher($requestedUrl, $matchUrl, $filters));
 
     }
 
