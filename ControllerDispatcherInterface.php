@@ -11,7 +11,7 @@
 namespace Anonym\Components\Route;
 
 
-class ControllerDispatcherInterface
+interface ControllerDispatcherInterface extends AccessDispatcherInterface
 {
 
 }
