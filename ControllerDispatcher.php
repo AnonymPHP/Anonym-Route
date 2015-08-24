@@ -84,6 +84,10 @@ class ControllerDispatcher implements ControllerDispatcherInterface
      */
     private function resolveNamespacePath($namespace = '')
     {
+        if (substr($namespace, -1) !== '\\') {
+            $namespace .= '\\';
+        }
 
+        return $namespace;
     }
 }
