@@ -20,15 +20,16 @@ use Anonym\Components\Route\RouteMatcher;
 class NewMatcher extends RouteMatcher implements MatcherInterface
 {
 
+
     /**
-     * the delimeter of explode
+     * the schema of regex
      *
      * @var string
      */
-    private $explodeWith = ' ';
+    private $regexSchema = '/\{.*?\?\}/';
 
     /**
-     * Eþleþtirilecek ve eþleþmesi gerek url i ayarlar
+     * Eï¿½leï¿½tirilecek ve eï¿½leï¿½mesi gerek url i ayarlar
      *
      * @param string $requestedUrl
      * @param string $matchUrl
@@ -46,6 +47,13 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
      */
     public function match()
     {
-
+        $replace = $this->replaceParameters();
+        
     }
+    
+    private function replaceParameters()
+    {
+        
+    }
+
 }
