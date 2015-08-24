@@ -91,3 +91,13 @@ class Test extends Controller{
 
 ```
 
+
+---------------
+
+```php
+
+$collector->get('/{test}', 'Controller:method'); // {test} is required
+$collector->get('/{test!}', 'Controller:method'); // {test!} is required
+$collector->get('/{test?}', 'Controller:method'); // {test} is optional
+
+```
