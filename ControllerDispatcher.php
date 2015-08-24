@@ -36,4 +36,13 @@ class ControllerDispatcher implements ControllerDispatcherInterface
 
     }
 
+    /**
+     * dispatch the controller
+     *
+     * @return \Anonym\Components\Route\Controller
+     */
+    public function dispatch()
+    {
+        // TODO: Implement dispatch() method.
+    }
 }
