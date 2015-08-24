@@ -141,16 +141,12 @@ class ActionDispatcher implements ActionDispatcherInterface
      * Create a new controller instance with controller name
      *
      * @param string $controller the controller name
-     * @throws ControllerException
-     * @return Controller
+     * @return Controller the instance of controller
      */
     private function createControllerInstance($controller = '')
     {
         $controller = new ControllerDispatcher($this->getNamespace(), $controller);
-
-        if ($controller instanceof Controller) {
-            return $controller;
-        }
+        return $controller->dispatch();
     }
 
 
