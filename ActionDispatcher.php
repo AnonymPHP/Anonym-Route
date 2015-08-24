@@ -51,7 +51,7 @@ class ActionDispatcher implements ActionDispatcherInterface
         $this->namespace = $namespace;
         AccessBag::setAccesses($access);
         AccessBag::setRequest($request);
-        $this->setAccessDispatcher( new AccessDispatcher());
+        $this->setAccessDispatcher(new AccessDispatcher());
 
     }
 
@@ -70,8 +70,7 @@ class ActionDispatcher implements ActionDispatcherInterface
             ];
         }
 
-        if(is_array($action))
-        {
+        if (is_array($action)) {
             if (isset($action['_controller'])) {
                 $controller = $action['_controller'];
 
@@ -90,13 +89,18 @@ class ActionDispatcher implements ActionDispatcherInterface
 
             }
 
+            // register the namespace
+            isset($action['_namespace']) ? $this->setNamespace($action['_namespace']) : null;
+
+            // create a controlelr instance
             $controller = $this->createControllerInstance($controller);
+
+            // call the method
             $response = $this->callControllerMethod($controller, $method);
             return $this->handleResponse($response);
-        }elseif($action instanceof Closure){
+        } elseif ($action instanceof Closure) {
             return $this->handleResponse(call_user_func_array($action, ParameterBag::getParameters()));
         }
-
 
 
     }

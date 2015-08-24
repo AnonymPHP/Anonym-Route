@@ -101,3 +101,15 @@ $collector->get('/{test!}', 'Controller:method'); // {test!} is required
 $collector->get('/{test?}', 'Controller:method'); // {test?} is optional
 
 ```
+
+How can I set the namespace?
+
+```php
+
+$router = new Router()->setNamespace('Your\Namespace');
+
+// or 
+
+$collector->get('/', ['_controller' => 'Test:method', '_namespace' => 'Your\Namespace']);
+
+```
