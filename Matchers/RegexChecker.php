@@ -18,7 +18,7 @@ class RegexChecker extends RouteMatcher implements MatcherInterface
 {
 
     /**
-     * Eşleştirilecek ve eşleşmesi gerek url i ayarlar
+     * EÅŸleÅŸtirilecek ve eÅŸleÅŸmesi gerek url i ayarlar
      *
      * @param string $requestedUrl
      * @param string $matchUrl
@@ -56,7 +56,7 @@ class RegexChecker extends RouteMatcher implements MatcherInterface
     }
 
     /**
-     * Regex i döndürür
+     * Regex i dÃ¶ndÃ¼rÃ¼r
      *
      * @param string $url
      * @return mixed
