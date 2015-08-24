@@ -98,6 +98,6 @@ class Test extends Controller{
 
 $collector->get('/{test}', 'Controller:method'); // {test} is required
 $collector->get('/{test!}', 'Controller:method'); // {test!} is required
-$collector->get('/{test?}', 'Controller:method'); // {test} is optional
+$collector->get('/{test?}', 'Controller:method'); // {test?} is optional
 
 ```
