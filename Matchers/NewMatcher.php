@@ -90,11 +90,19 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
 
         $replaced = [];
 
-
         for ($i = 0; $i < count($orjinal); $i++) {
             $orj = $orjinal[$i];
             $cln = $cleaned[$i];
             $rex = isset($requestedEx[$i]) ? $requestedEx[$i] : null;
+
+            $fullcln = str_replace(['?', '!'], '', $cln);
+            if($filter = $this->getFilter($fullcln))
+            {
+                if(!preg_match('@'. $filter. '@si', $rex))
+                {
+                    return false;
+                }
+            }
 
             if (strpos($cln, '!')) {
                 if (null === $rex) {
