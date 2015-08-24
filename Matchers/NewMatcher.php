@@ -26,7 +26,7 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
      *
      * @var string
      */
-    private $regexSchema = '/\{.*?\?\}/';
+    private $regexSchema = '{(.*?)}';
 
     /**
      * url i ayarlar
@@ -53,8 +53,9 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
     
     private function replaceParameters()
     {
-         preg_match_all($this->regexSchema, $this->getRequestedUrl(), $matches);
-         var_dump($matches);
+
+         preg_match_all($this->regexSchema, $this->getMatchUrl(), $matches);
+         print_r($matches);
     }
 
 }
