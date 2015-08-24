@@ -11,6 +11,7 @@
 namespace Anonym\Components\Route\Matchers;
 
 
+use Anonym\Components\Route\ParameterBag;
 use Anonym\Components\Route\RouteMatcher;
 
 /**
@@ -68,12 +69,10 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
         if (preg_match_all($this->regexSchema, $this->getMatchUrl(), $matches)) {
             list($orjinals, $cleaned) = $matches;
             $requestEx = explode(' ', $this->getRequestedUrl());
-            $matched = explode(' ', $this->getMatchUrl());
-
             $replaced = $this->findAndReplaceParameters($orjinals, $cleaned, $requestEx);
 
             if (false !== $replaced) {
-
+                ParameterBag::setParameters($replaced);
             }
         }
     }
