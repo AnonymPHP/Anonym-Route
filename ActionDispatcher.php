@@ -150,8 +150,6 @@ class ActionDispatcher implements ActionDispatcherInterface
 
         if ($controller instanceof Controller) {
             return $controller;
-        } else {
-            throw new ControllerException(sprintf('%s is not a controller', $controllerName));
         }
     }
 

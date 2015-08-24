@@ -45,6 +45,11 @@ class ControllerDispatcher implements ControllerDispatcherInterface
     {
         $name = $this->namespace . $this->class;
 
+        $controller = new $name;
 
+        if($controller instanceof Controller)
+        {
+
+        }
     }
 }
