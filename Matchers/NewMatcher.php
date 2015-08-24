@@ -51,7 +51,7 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
         $find = $this->replaceParameters();
 
         if (false !== $find) {
-
+            return true;
         } else {
             return false;
         }
@@ -73,6 +73,7 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
 
             if (false !== $replaced) {
                 ParameterBag::setParameters($replaced);
+                return true;
             }
         }
     }
@@ -98,10 +99,8 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
             $fullcln = str_replace(['?', '!'], '', $cln);
 
             // check the filters
-            if($filter = $this->getFilter($fullcln))
-            {
-                if(!preg_match('@'. $filter. '@si', $rex))
-                {
+            if ($filter = $this->getFilter($fullcln)) {
+                if (!preg_match('@' . $filter . '@si', $rex)) {
                     return false;
                 }
             }
