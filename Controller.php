@@ -27,4 +27,25 @@ abstract class Controller
      * @var array
      */
     private $parameters;
+
+    /**
+     * @return array
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * register the parameters
+     *
+     * @param array $parameters
+     * @return $this
+     */
+    public function setParameters(array $parameters = [])
+    {
+        $this->parameters = $parameters;
+        return $this;
+    }
+
 }
