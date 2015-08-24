@@ -43,6 +43,8 @@ class ControllerDispatcher implements ControllerDispatcherInterface
      */
     public function dispatch()
     {
+        $name = $this->namespace . $this->class;
+
 
     }
 }
