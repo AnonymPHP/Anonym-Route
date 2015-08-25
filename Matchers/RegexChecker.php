@@ -37,8 +37,8 @@ class RegexChecker extends RouteMatcher implements MatcherInterface
      */
     public function match($url = null)
     {
-        $regex = $this->getRegex($this->getMatchUrl());
         $match = parent::match($url);
+        $regex = $this->getRegex($this->getMatchUrl());
 
         if ($regex !== ' ') {
             if (preg_match("@" . ltrim($regex) . "@si", $this->getRequestedUrl(), $matches) || true === $match) {

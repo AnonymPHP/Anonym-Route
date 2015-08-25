@@ -49,8 +49,9 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
      */
     public function match($url = null)
     {
-        $find = $this->replaceParameters();
         $match = parent::match($url);
+        $find = $this->replaceParameters();
+
 
         if (false !== $find || true === $match) {
             return true;
