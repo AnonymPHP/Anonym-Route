@@ -46,7 +46,7 @@ class ParameterBag
      */
     public static function setParameters($parameters)
     {
-        self::$parameters = $parameters;
+        self::$parameters = array_merge(static::$parameters, $parameters);
     }
 
 }
