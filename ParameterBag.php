@@ -25,7 +25,7 @@ class ParameterBag
      * @param string $name the name of parameter
      * @param mixed $value the value of parameter, can be anything
      */
-    public function addParameter($name, $value = '')
+    public static function addParameter($name, $value = '')
     {
         static::$parameters[$name] = $value;
     }
