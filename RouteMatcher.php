@@ -48,12 +48,6 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
     private $matchUrl;
 
 
-    /**
-     * the instance of matcher
-     *
-     * @var MatcherInterface
-     */
-    private $matcher;
 
     /**
      * Eşleştirilecek ve eşleşmesi gerek url i ayarlar
