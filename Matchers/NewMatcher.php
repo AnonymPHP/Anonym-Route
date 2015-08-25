@@ -29,6 +29,13 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
      */
     private $regexSchema = '@{(.*?)}@si';
 
+
+    /**
+     * the parameters of route
+     *
+     * @var string
+     */
+    private $parameters;
     /**
      * url i ayarlar
      *
@@ -69,16 +76,40 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
     private function replaceParameters()
     {
 
+        if (preg_replace_callback($this->getRegexSchema(), [$this, 'resolvePregCallback'], $this->getMatchUrl())) {
+            var_dump($this->parameters);
+
+        }
+
+        /*
         if (preg_match_all($this->regexSchema, $this->getMatchUrl(), $matches)) {
             list($orjinals, $cleaned) = $matches;
             $requestEx = explode(' ', $this->getRequestedUrl());
-            $replaced = $this->findAndReplaceParameters($orjinals, $cleaned, $requestEx);
+            $matchEx = explode(' ', $this->getMatchUrl());
+            $replaced = $this->findAndReplaceParameters($orjinals, $cleaned, $requestEx, $matchEx);
 
             if (false !== $replaced) {
                 ParameterBag::setParameters($replaced);
                 return true;
             }
         }
+        */
+    }
+
+    /**
+     * resolve the preg callback
+     *
+     * @param array $finded
+     * @return bool|string
+     */
+    private function resolvePregCallback($finded)
+    {
+        $matchEx = explode(' ', $this->getMatchUrl());
+        $requestEx = explode(' ', $this->getRequestedUrl());
+
+        $key = array_search($finded[0], $matchEx);
+        $this->parameters[] = isset($requestEx[$key]) ? $requestEx[$key] : false;
+
     }
 
     /**
@@ -89,41 +120,9 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
      * @param array $requestedEx
      * @return array|bool
      */
-    private function findAndReplaceParameters(array $orjinal, array $cleaned, array $requestedEx)
+    private function findAndReplaceParameters(array $orjinal, array $cleaned, array $requestedEx, array $matchEx)
     {
-
         $replaced = [];
-
-        for ($i = 0; $i < count($orjinal); $i++) {
-            $orj = $orjinal[$i];
-            $cln = $cleaned[$i];
-            $rex = isset($requestedEx[$i]) ? $requestedEx[$i] : null;
-
-            $fullcln = str_replace(['?', '!'], '', $cln);
-
-            // check the filters
-            if ($filter = $this->getFilter($fullcln)) {
-                if (!preg_match('@' . $filter . '@si', $rex)) {
-                    return false;
-                }
-            }
-
-            // is it a required parameter ?
-            if (strpos($cln, '!')) {
-                if (null === $rex) {
-                    return false;
-                } else {
-                    $replaced[] = $rex;
-                }
-            } // is it a optional paramater ?
-            elseif (strpos($cln, '?')) {
-                if (null !== $rex) {
-                    $replaced[] = $rex;
-                } // fuck off! all the same :)
-            } else {
-                $replaced[] = $rex;
-            }
-        }
         return $replaced;
     }
 
