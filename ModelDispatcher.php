@@ -14,4 +14,23 @@ namespace Anonym\Components\Route;
 trait ModelDispatcher
 {
 
+    /**
+     * the namespace of models
+     *
+     * @var string
+     */
+    private $namespace = 'Anonym\Models';
+
+
+    protected $model;
+
+    public function model($name = '', $namespace = null)
+    {
+        if (null === $name) {
+            $namespace = $this->namespace;
+        }
+
+        $namespace = $this->resolveNamespace($namespace);
+    }
+
 }
