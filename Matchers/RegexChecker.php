@@ -37,13 +37,11 @@ class RegexChecker extends RouteMatcher implements MatcherInterface
      */
     public function match($url = null)
     {
-
-
         $regex = $this->getRegex($this->getMatchUrl());
-
+        $match = parent::match($url);
 
         if ($regex !== ' ') {
-            if (preg_match("@" . ltrim($regex) . "@si", $this->getRequestedUrl(), $matches) || true === parent::match($url)) {
+            if (preg_match("@" . ltrim($regex) . "@si", $this->getRequestedUrl(), $matches) || true === $match) {
                 unset($matches[0]);
                 ParameterBag::setParameters($matches);
                 return true;
