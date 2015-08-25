@@ -9,7 +9,10 @@
 
 
 namespace Anonym\Components\Route;
+
 use Anonym\Components\HttpClient\Request;
+use Anonym\Components\Route\Matchers\NewMatcher;
+
 /**
  * Class Router
  * @package Anonym\Components\Route
@@ -60,8 +63,8 @@ class Router implements RouterInterface
     public function __construct(Request $request = null)
     {
         $this->setRequest($request);
-        $this->setMatcher(new RouteMatcher($this->getRequest()->getUrl()));
-        $this->setActionDispatcher( new ActionDispatcher($this->getNamespace(), $this->getAccess(), $this->getRequest()));
+        $this->setMatcher(new NewMatcher($this->getRequest()->getUrl()),null, FilterBag::getFilters());
+        $this->setActionDispatcher(new ActionDispatcher($this->getNamespace(), $this->getAccess(), $this->getRequest()));
     }
 
     /**
@@ -72,7 +75,7 @@ class Router implements RouterInterface
         return $this->matcher;
     }
 
-    /**
+    /**,
      * Set a route matcher instance
      *
      * @param RouteMatcherInterface $matcher
@@ -185,11 +188,8 @@ class Router implements RouterInterface
         if (isset($collections[$method])) {
 
             $collections = $collections[$method];
-
-            foreach($collections as $collection)
-            {
-                if($this->getMatcher()->match($collection['uri']))
-                {
+            foreach ($collections as $collection) {
+                if ($this->getMatcher()->match($collection['uri'])) {
                     $this->getActionDispatcher()->dispatch($collection['action']);
                     return true;
                 }
@@ -197,7 +197,7 @@ class Router implements RouterInterface
 
             throw new RouteMatchException('We dont\' have any matcher route');
 
-        }else{
+        } else {
 
             throw new RouteMatchException(sprintf('There is no route in your %s method', $method));
         }
