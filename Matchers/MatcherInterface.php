@@ -20,8 +20,9 @@ interface MatcherInterface
     /**
      *make the match
      *
+     * @param string|null url
      * @return bool
      */
-    public function match();
+    public function match($url = null);
 
 }
