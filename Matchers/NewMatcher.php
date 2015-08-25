@@ -70,7 +70,13 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
     {
 
         if (preg_replace_callback($this->getRegexSchema(), [$this, 'resolvePregCallback'], $this->getMatchUrl())) {
-            var_dump($this->parameters);
+
+            $resolve = $this->resolveParameters($this->getParameters());
+
+            // something went wrong!
+            if (false === $resolve) {
+                return false;
+            }
 
         }
 
@@ -101,23 +107,35 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
         $requestEx = explode(' ', $this->getRequestedUrl());
 
         $key = array_search($finded[0], $matchEx);
-        $this->parameters[] = isset($requestEx[$key]) ? $requestEx[$key] : false;
+        $cln = $finded[1];
 
+        if (!strstr($cln, '?')) {
+            $add = isset($requestEx[$key]) ? $requestEx[$key] : null;
+        } else {
+            $add = isset($requestEx[$key]) ? $requestEx[$key] : false;
+        }
+
+        $this->parameters[] = $add;
     }
 
     /**
-     * find and replace parameters
+     * resolve the parameters of route
      *
-     * @param array $orjinal
-     * @param array $cleaned
-     * @param array $requestedEx
-     * @return array|bool
+     * @param array $parameters
+     * @return bool
      */
-    private function findAndReplaceParameters(array $orjinal, array $cleaned, array $requestedEx, array $matchEx)
+    private function resolveParameters(array $parameters)
     {
-        $replaced = [];
-        return $replaced;
+
+        foreach ($parameters as $parameter) {
+            if (false === $parameter) {
+                return false;
+            }
+        }
+
+        return true;
     }
+
 
     /**
      * @return string
