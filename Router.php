@@ -208,5 +208,8 @@ class Router implements RouterInterface
         }
     }
 
-    private function  sendContentString()
+    private function  sendContentString($content = '', Request $request)
+    {
+
+    }
 }
