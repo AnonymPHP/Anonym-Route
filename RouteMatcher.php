@@ -166,7 +166,7 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
      */
     public function getFilter($name = '')
     {
-        return $this->filters[$name];
+        return isset($this->filters[$name]) ? $this->filters[$name]: false;
     }
 
 
