@@ -42,7 +42,7 @@ class RegexChecker extends RouteMatcher implements MatcherInterface
 
 
         if ($regex !== ' ') {
-            if (preg_match("@" . ltrim($regex) . "@si", $this->getRequestedUrl(), $matches)) {
+            if (preg_match("@" . ltrim($regex) . "@si", $this->getRequestedUrl(), $matches) || true === parent::match()) {
                 unset($matches[0]);
                 ParameterBag::setParameters($matches);
                 return true;
