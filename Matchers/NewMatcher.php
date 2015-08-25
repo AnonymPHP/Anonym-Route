@@ -69,30 +69,20 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
     private function replaceParameters()
     {
 
-        if (preg_replace_callback($this->getRegexSchema(), [$this, 'resolvePregCallback'], $this->getMatchUrl())) {
+        if (preg_match($this->regexSchema, $this->getMatchUrl())) {
+
+            preg_replace_callback($this->getRegexSchema(), [$this, 'resolvePregCallback'], $this->getMatchUrl());
 
             $resolve = $this->resolveParameters($this->getParameters());
-
             // something went wrong!
             if (false === $resolve) {
                 return false;
             }
-
+        } elseif ($this->getMatchUrl() !== $this->getRequestedUrl()) {
+            return false;
         }
 
-        /*
-        if (preg_match_all($this->regexSchema, $this->getMatchUrl(), $matches)) {
-            list($orjinals, $cleaned) = $matches;
-            $requestEx = explode(' ', $this->getRequestedUrl());
-            $matchEx = explode(' ', $this->getMatchUrl());
-            $replaced = $this->findAndReplaceParameters($orjinals, $cleaned, $requestEx, $matchEx);
-
-            if (false !== $replaced) {
-                ParameterBag::setParameters($replaced);
-                return true;
-            }
-        }
-        */
+        return true;
     }
 
     /**
@@ -103,16 +93,16 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
      */
     private function resolvePregCallback($finded)
     {
+
         $matchEx = explode(' ', $this->getMatchUrl());
         $requestEx = explode(' ', $this->getRequestedUrl());
-
         $key = array_search($finded[0], $matchEx);
         $cln = $finded[1];
 
         if (!strstr($cln, '?')) {
-            $add = isset($requestEx[$key]) ? $requestEx[$key] : null;
-        } else {
             $add = isset($requestEx[$key]) ? $requestEx[$key] : false;
+        } else {
+            $add = isset($requestEx[$key]) ? $requestEx[$key] : null;
         }
 
         $this->parameters[] = $add;
