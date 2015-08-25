@@ -19,7 +19,7 @@ namespace Anonym\Components\Route;
  */
 abstract class Controller
 {
-    use Middleware;
+    use Middleware, ModelDispatcher;
 
     /**
      * repository of parameters
