@@ -29,13 +29,6 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
      */
     private $regexSchema = '@{(.*?)}@si';
 
-
-    /**
-     * the parameters of route
-     *
-     * @var string
-     */
-    private $parameters;
     /**
      * url i ayarlar
      *
