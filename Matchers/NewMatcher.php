@@ -78,6 +78,8 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
             if (false === $resolve) {
                 return false;
             }
+
+            ParameterBag::setParameters($this->getParameters());
         } elseif ($this->getMatchUrl() !== $this->getRequestedUrl()) {
             return false;
         }
