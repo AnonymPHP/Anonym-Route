@@ -208,8 +208,16 @@ class Router implements RouterInterface
         }
     }
 
+    /**
+     * send the content
+     *
+     * @param string $content
+     * @param Request $request
+     */
     private function  sendContentString($content = '', Request $request)
     {
-
+        $response = $request->getResponse();
+        $response->setContent($request);
+        $response->send();
     }
 }
