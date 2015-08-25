@@ -217,7 +217,7 @@ class Router implements RouterInterface
     private function  sendContentString($content = '', Request $request)
     {
         $response = $request->getResponse();
-        $response->setContent($request);
+        $response->setContent($content);
         $response->send();
     }
 }
