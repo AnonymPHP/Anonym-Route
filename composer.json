@@ -19,7 +19,7 @@
   ],
   "require": {
     "php": ">=5.4.0",
-    "anonym-php/anonym-httpclient" : "~1.2@dev",
+    "anonym-php/anonym-httpfoundation" : "~1.2@dev",
     "anonym-php/anonym-view" : "~1.2@dev"
 
   },
