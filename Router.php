@@ -32,7 +32,7 @@ class Router implements RouterInterface
      *
      * @var string
      */
-    private $namespace = 'Anonym\Controllers\\';
+    private $namespace = 'Anonym\Http\Controllers\\';
 
     /**
      * the instance of RouteMatcherInterface
