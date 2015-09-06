@@ -59,7 +59,7 @@ class AccessDispatcher implements AccessDispatcherInterface
                     $accessInstance = $this->access[$name];
                     $accessInstance = new $accessInstance;
 
-                    if ($accessInstance instanceof AccessInterface) {
+                    if ($accessInstance instanceof MiddlewareInterface) {
 
                         $role = isset($access['role']) ? $access['role'] : '';
                         $next = isset($access['next']) ? $access['next'] : null;

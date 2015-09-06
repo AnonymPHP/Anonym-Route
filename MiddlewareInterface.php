@@ -19,7 +19,7 @@ use Anonym\Components\HttpClient\Request;
  * Interface AccessInterface
  * @package Anonym\Components\Route
  */
-interface AccessInterface
+interface MiddlewareInterface
 {
 
 
