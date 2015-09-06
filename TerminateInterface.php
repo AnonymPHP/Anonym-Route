@@ -12,7 +12,7 @@
 namespace Anonym\Components\Route;
 
 
-class TerminateInterface
+interface TerminateInterface
 {
 
 }
