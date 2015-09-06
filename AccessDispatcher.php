@@ -65,6 +65,10 @@ class AccessDispatcher implements AccessDispatcherInterface
                         $next = isset($access['next']) ? $access['next'] : null;
                         if ($accessInstance->handle($this->request, $role, $next)) {
                             return true;
+                        }else{
+                            if ($accessInstance instanceof TerminateInterface) {
+                                $accessInstance->terminate($this->request);
+                            }
                         }
                     }
                 }

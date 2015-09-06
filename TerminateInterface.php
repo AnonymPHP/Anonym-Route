@@ -10,9 +10,18 @@
 
 
 namespace Anonym\Components\Route;
+use Anonym\Components\HttpClient\Request;
 
 
 interface TerminateInterface
 {
+
+    /**
+     * terminate the request
+     *
+     * @param Request $request
+     * @return mixed
+     */
+    public function terminate(Request $request);
 
 }
