@@ -12,7 +12,10 @@
 namespace Anonym\Components\Route;
 use Anonym\Components\HttpClient\Request;
 
-
+/**
+ * Interface TerminateInterface
+ * @package Anonym\Components\Route
+ */
 interface TerminateInterface
 {
 
