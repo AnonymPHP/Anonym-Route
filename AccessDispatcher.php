@@ -51,7 +51,7 @@ class AccessDispatcher implements AccessDispatcherInterface
      */
     public function process($access = '')
     {
-        if (is_string($access)) {
+        if (is_array($access)) {
             if (isset($access['name'])) {
                 $name = $access['name'];
 

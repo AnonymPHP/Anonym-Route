@@ -49,7 +49,6 @@ class ActionDispatcher implements ActionDispatcherInterface
     public function __construct($namespace = '', array $access = [], Request $request = null)
     {
         $this->namespace = $namespace;
-        AccessBag::setAccesses($access);
         AccessBag::setRequest($request);
         $this->setAccessDispatcher(new AccessDispatcher());
 
@@ -83,7 +82,7 @@ class ActionDispatcher implements ActionDispatcherInterface
 
             if (isset($action['_middleware'])) {
 
-                if (false === $this->getAccessDispatcher()->process($action['_access'])) {
+                if (false === $this->getAccessDispatcher()->process($action['_middleware'])) {
                     return false;
                 }
 
