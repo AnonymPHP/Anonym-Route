@@ -56,8 +56,8 @@ abstract class Controller
      * validate the form
      *
      * @param Request $request
-     * @param $rules
-     * @param $filters
+     * @param array $rules
+     * @param array $filters
      */
     public function validate(Request $request, array $rules = [],array $filters = [])
     {
