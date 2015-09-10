@@ -11,6 +11,9 @@
 
 namespace Anonym\Components\Route;
 
+use Anonym\Components\HttpClient\Request;
+use Anonym\Components\Security\Validation;
+
 /**
  * the parent class of controllers
  *
@@ -48,4 +51,18 @@ abstract class Controller
         return $this;
     }
 
+
+    /**
+     * validate the form
+     *
+     * @param Request $request
+     * @param $rules
+     * @param $filters
+     */
+    public function validate(Request $request, $rules, $filters)
+    {
+        $all = $request->all();
+
+        return $request->getValidation()->make($all, $rules, $filters);
+    }
 }
