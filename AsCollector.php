@@ -14,4 +14,11 @@ namespace Anonym\Components\Route;
 class AsCollector
 {
 
+    /**
+     * the list of routes as
+     *
+     * @var array
+     */
+    protected $as;
+
 }
