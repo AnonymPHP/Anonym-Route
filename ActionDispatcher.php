@@ -70,8 +70,8 @@ class ActionDispatcher implements ActionDispatcherInterface
         }
 
         if (is_array($action)) {
-            if (isset($action['_controller'])) {
-                $controller = $action['_controller'];
+            if (isset($action['_controller']) || $action['uses']) {
+                $controller = isset($action['_controller']) ? $action['_controller'] : $action['uses'];
 
                 if (strstr($controller, ':')) {
                     list($controller, $method) = explode(':', $controller);
