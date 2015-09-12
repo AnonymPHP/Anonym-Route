@@ -19,6 +19,6 @@ class AsCollector
      *
      * @var array
      */
-    protected $as;
+    protected static $as;
 
 }
