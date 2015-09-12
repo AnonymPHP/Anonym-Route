@@ -48,8 +48,10 @@ class RouteCollector
             $action = ['_controller' => $action];
         }
 
-        if (isset($action['as'])) {
-            AsCollector::addAs($action['as'], $uri);
+        if (is_array($action)) {
+            if (isset($action['as'])) {
+                AsCollector::addAs($action['as'], $uri);
+            }
         }
 
         $types = (array) $types;
