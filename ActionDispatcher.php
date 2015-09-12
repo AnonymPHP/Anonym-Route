@@ -78,6 +78,12 @@ class ActionDispatcher implements ActionDispatcherInterface
                 } elseif ($action['_method']) {
                     $method = $action['_method'];
                 }
+
+
+                if (strstr('\\', $controller)) {
+                    $namespace = explode('\\', $controller);
+                    $action['_namespace'] = join('\\', array_slice($namespace,0, count($namespace)-1));
+                }
             }
 
             if (isset($action['_middleware'])) {
