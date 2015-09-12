@@ -83,6 +83,7 @@ class ActionDispatcher implements ActionDispatcherInterface
                 if (is_array($action)) {
                     if (strstr('\\', $controller)) {
                         $namespace = explode('\\', $controller);
+                        $controller = end($namespace);
                         $action['_namespace'] = rtrim(join('\\', array_slice($namespace, 0, count($namespace) - 1)), '\\');
                     }
                 }
