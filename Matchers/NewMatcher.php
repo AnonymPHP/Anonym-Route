@@ -50,8 +50,8 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
     public function match($url = null)
     {
         $match = parent::match($url);
-        $find = $this->replaceParameters();
 
+        $find = $this->replaceParameters();
 
         if (false !== $find || true === $match) {
             return true;
@@ -74,6 +74,8 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
             preg_replace_callback($this->getRegexSchema(), [$this, 'resolvePregCallback'], $this->getMatchUrl());
 
             $resolve = $this->resolveParameters($this->getParameters());
+
+
             // something went wrong!
             if (false === $resolve) {
                 return false;
@@ -101,13 +103,14 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
         $key = array_search($finded[0], $matchEx);
         $cln = $finded[1];
 
+
         if (!strstr($cln, '?')) {
-            $add = isset($requestEx[$key]) ? $requestEx[$key] : false;
+            $add = isset($requestEx[$key]) && $requestEx[$key] !== '' ? $requestEx[$key] : false;
         } else {
             $add = isset($requestEx[$key]) ? $requestEx[$key] : null;
         }
 
-        $this->parameters[] = $add;
+        $this->parameters[$cln] = $add;
     }
 
     /**
@@ -118,6 +121,7 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
      */
     private function resolveParameters(array $parameters)
     {
+
 
         foreach ($parameters as $parameter) {
             if (false === $parameter) {
