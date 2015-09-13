@@ -15,6 +15,7 @@ use Anonym\Components\HttpClient\Request;
 use Anonym\Components\HttpClient\Response;
 use Anonym\Components\View\ViewExecuteInterface;
 use Closure;
+use Anonym\Facades\App;
 
 /**
  * the class of action dispatcher
@@ -108,7 +109,7 @@ class ActionDispatcher implements ActionDispatcherInterface
             return $this->handleResponse($response);
 
         } elseif ($action instanceof Closure) {
-            return $this->handleResponse(call_user_func_array($action, ParameterBag::getParameters()));
+            return $this->handleResponse(App::call($action, ParameterBag::getParameters()));
         } else {
             return false;
         }
@@ -147,7 +148,7 @@ class ActionDispatcher implements ActionDispatcherInterface
      */
     private function callControllerMethod(Controller $controller, $method)
     {
-        return call_user_func_array([$controller, $method], ParameterBag::getParameters());
+        return App::call([$controller, $method], ParameterBag::getParameters());
     }
 
     /**

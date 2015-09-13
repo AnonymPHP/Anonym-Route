@@ -9,7 +9,7 @@
  */
 
 namespace Anonym\Components\Route;
-
+use Anonym\Facades\App;
 /**
  * Class ControllerDispatcher
  * @package Anonym\Components\Route
@@ -51,7 +51,7 @@ class ControllerDispatcher implements ControllerDispatcherInterface
         $name = $this->generateClassName($this->namespace, $this->class);
 
         // the controller instance
-        $controller = new $name;
+        $controller = App::make($name);
 
 
         if($controller instanceof Controller)
