@@ -201,7 +201,7 @@ class Router implements RouterInterface
                 }
             }
 
-            throw new RouteMatchException('We dont\' have any matcher route');
+            app('route.not.found');
 
         } else {
 
