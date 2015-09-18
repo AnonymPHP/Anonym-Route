@@ -25,7 +25,7 @@ class AccessBag
      *
      * @var array
      */
-    private static $accesses;
+    private static $accesses = [];
 
     /**
      * the instance of request
