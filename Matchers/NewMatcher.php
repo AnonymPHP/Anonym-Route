@@ -11,6 +11,7 @@
 namespace Anonym\Components\Route\Matchers;
 
 
+use Anonym\Components\Route\FilterMatchException;
 use Anonym\Components\Route\ParameterBag;
 use Anonym\Components\Route\RouteMatcher;
 
@@ -107,17 +108,35 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
             list($cln, $filter) = explode(':', $cln);
         }
 
-        if(!$this->runFilter(isset($filter) ? $filter : $cln)){
-
-        }
-
         if (!strstr($cln, '?')) {
             $add = isset($requestEx[$key]) && $requestEx[$key] !== '' ? $requestEx[$key] : false;
         } else {
             $add = isset($requestEx[$key]) ? $requestEx[$key] : null;
         }
 
+        // we gonna do run filter  now
+        if(!$this->runFilter(isset($filter) ? $filter : $cln, $add)){
+            throw new FilterMatchException('Your filter do not match');
+        }
+
         $this->parameters[$cln] = $add;
+    }
+
+    /**
+     * execute a filter
+     *
+     * @param string $filter
+     * @param string $parameter
+     * @return bool|int
+     */
+    private function runFilter($filter, $parameter){
+         if(!strstr($filter, '(') && !strstr($filter, ')')){
+               if(!$filter = $this->getFilter($filter)){
+                   return false;
+               }
+         }
+
+        return preg_match('@'.$filter.'@si', $parameter) ?: false;
     }
 
     /**
