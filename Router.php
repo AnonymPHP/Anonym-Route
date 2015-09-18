@@ -66,7 +66,19 @@ class Router implements RouterInterface
         $this->setAccess(AccessBag::getAccesses());
         $this->setMatcher(new NewMatcher($this->getRequest()->getUrl(), null, FilterBag::getFilters()));
         $this->setActionDispatcher(new ActionDispatcher($this->getNamespace(), $this->getAccess(), $this->getRequest()));
+
+        $this->setDefaultFilters();
         ParameterBag::addParameter('Request', $request);
+    }
+
+    /**
+     *  register the default filters without any service provider
+     *
+     */
+    private function setDefaultFilters(){
+        FilterBag::addFilter('int', '(\d+)');
+        FilterBag::addFilter('sef', '([a-zA-ZÇŞĞÜÖİçşğüöı0-9+_\-\. ]+)');
+        FilterBag::addFilter('string', '([a-zA-Z]+)');
     }
 
     /**
