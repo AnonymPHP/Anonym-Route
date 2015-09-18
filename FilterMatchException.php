@@ -9,9 +9,21 @@
  */
 
 namespace Anonym\Components\Route;
+use Exception;
 
-
-class FilterMatchException
+/**
+ * Class FilterMatchException
+ * @package Anonym\Components\Route
+ */
+class FilterMatchException extends Exception
 {
 
+    /**
+     * create a new instance and register exception message
+     *
+     * @param string $message
+     */
+    public function __construct($message = ''){
+        $this->message = $message;
+    }
 }
