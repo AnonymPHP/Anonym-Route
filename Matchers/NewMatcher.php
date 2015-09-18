@@ -98,12 +98,18 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
     private function resolvePregCallback($finded)
     {
 
-        var_dump($this->getFilters());
         $matchEx = explode(' ', $this->getMatchUrl());
         $requestEx = explode(' ', $this->getRequestedUrl());
         $key = array_search($finded[0], $matchEx);
         $cln = $finded[1];
 
+        if (strstr($cln, ':')) {
+            list($cln, $filter) = explode(':', $cln);
+        }
+
+        if(!$this->runFilter(isset($filter) ? $filter : $cln)){
+
+        }
 
         if (!strstr($cln, '?')) {
             $add = isset($requestEx[$key]) && $requestEx[$key] !== '' ? $requestEx[$key] : false;
