@@ -76,7 +76,7 @@ class Router implements RouterInterface
      *
      */
     private function setDefaultFilters(){
-        FilterBag::addFilter('int', '(\d+)');
+        FilterBag::addFilter('int', '([0-9]+)');
         FilterBag::addFilter('sef', '([a-zA-ZÇŞĞÜÖİçşğüöı0-9+_\-\. ]+)');
         FilterBag::addFilter('string', '([a-zA-Z]+)');
     }
