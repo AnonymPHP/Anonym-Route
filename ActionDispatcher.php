@@ -64,11 +64,13 @@ class ActionDispatcher implements ActionDispatcherInterface
     public function dispatch($action = [])
     {
 
+
         if (is_string($action)) {
             $action = [
                 '_controller' => $action
             ];
         }
+
 
         if (is_array($action)) {
             if (isset($action['_controller']) || $action['uses']) {
