@@ -9,5 +9,5 @@
 
 include 'vendor/autoload.php';
 
-$matcher = new \Anonym\Components\Route\Matchers\NewMatcher('/asdasd/', '/asdasd');
+$matcher = new \Anonym\Components\Route\Matchers\NewMatcher('/{test}/', '/asdasd');
 $matcher->match();
