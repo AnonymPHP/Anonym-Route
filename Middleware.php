@@ -11,6 +11,8 @@
 
 namespace Anonym\Components\Route;
 
+use Closure;
+
 /**
  * the trait of middleware
  *
@@ -28,22 +30,27 @@ trait Middleware
     private $accessDispatcher;
 
     /**
-     * check's the user authority
+     *  determine user authentication
      *
      * @param string $name the middleware name
+     * @param string|array $role the role of user, can be string or array
+     * @param Closure $next the callback for middleware
      * @throws MiddlewareException
      * @return bool
      */
-    public function middleware($name = '')
+    public function middleware($name = '', $role = '', Closure $next = null)
     {
         if (!$this->accessDispatcher) {
             $this->accessDispatcher = new AccessDispatcher();
         }
 
-        $middleware =  $this->accessDispatcher->process($name);
+        $middleware = $this->accessDispatcher->process([
+            'name' => $name,
+            'role' => $role,
+            'next' => $next
+        ]);
 
-        if(true !== $middleware)
-        {
+        if (true !== $middleware) {
             throw new MiddlewareException('You can\'t access here, your authority is incorrect');
         }
 
