@@ -23,6 +23,9 @@
     "anonym-php/anonym-view": "~1.2@dev",
     "anonym-php/anonym-security": "~1.2@dev"
   },
+  "require-dev":{
+    "illuminate/container": "5.2.*"
+  },
   "autoload": {
     "psr-4": {
       "Anonym\\Components\\Route\\": ""
