@@ -236,7 +236,9 @@ class Router implements RouterInterface
     {
         $app = $this;
         array_map(function ($collection) use ($app) {
+            if($app->getMatcher()->matchWhen($collection['uri'])){
 
+            }
         }, $collections);
     }
 
