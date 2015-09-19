@@ -9,7 +9,7 @@
 
 
 namespace Anonym\Components\Route;
-
+use Illuminate\Container\Container;
 use Anonym\Components\HttpClient\Request;
 use Anonym\Components\Route\Matchers\NewMatcher;
 
@@ -56,18 +56,46 @@ class Router implements RouterInterface
     private $actionDispatcher;
 
     /**
+     * the instance of laravel controller
+     *
+     * @var Container
+     */
+    private $container;
+
+    /**
      * Create a new instance and set Request and matcher variables
      *
-     * @param Request|null $request
+     * @param Request|null $request the instance of anonym request
+     * @param Container $container the instance of laravel container
      */
-    public function __construct(Request $request = null)
+    public function __construct(Request $request = null, Container $container)
     {
         $this->setRequest($request);
         $this->setAccess(AccessBag::getAccesses());
+        $this->setContainer($container);
         $this->setDefaultFilters();
         $this->setMatcher(new NewMatcher($this->getRequest()->getUrl(), null, FilterBag::getFilters()));
         $this->setActionDispatcher(new ActionDispatcher($this->getNamespace(), $this->getAccess(), $this->getRequest()));
     }
+
+    /**
+     * @return Container
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
+
+    /**
+     * @param Container $container
+     * @return Router
+     */
+    public function setContainer(Container $container)
+    {
+        $this->container = $container;
+        return $this;
+    }
+
 
     /**
      *  register the default filters without any service provider
