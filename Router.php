@@ -233,12 +233,17 @@ class Router implements RouterInterface
      */
     private function resolveWhenCollections(array $collections = [])
     {
-        $app = $this;
-        array_map(function ($collection) use ($app) {
-            if($app->getMatcher()->matchWhen($collection['uri'])){
-                app()->call($collection['action'], [$app['route']]);
+
+        foreach($collections as $collection){
+            if($this->getMatcher()->matchWhen($collection['uri'])){
+                app()->call($collection['action'], [app('route')]);
             }
-        }, $collections);
+        }
+
+
+
+
+        return RouteCollector::getRoutes();
     }
 
     /**
