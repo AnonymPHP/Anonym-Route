@@ -165,6 +165,17 @@ class RouteCollector
         return $this->addRoute(['PATCH'], $uri, $action);
     }
 
+    /**
+     * Register a new WHEN route with router
+     *
+     * @param string $uri
+     * @param mixed $action
+     * @return $this
+     */
+    public function when($urİ, $action){
+        return $this->addRoute('WHEN', $uri, $action);
+    }
+
 
     /**
      * Register a new filter with name and type
