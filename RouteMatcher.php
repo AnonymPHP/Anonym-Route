@@ -63,6 +63,21 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
     }
 
     /**
+     * match uri for when( method
+     *
+     * @param null|string $url
+     * @return bool
+     */
+    public function matchWhen($url = null)
+    {
+        if (null !== $url) {
+            $this->setMatchUrl($url);
+        }
+
+        return strpos($this->getRequestedUrl(), $this->getMatchUrl()) === 0;
+    }
+
+    /**
      * Eşleşmeyi yapar
      *
      * @param string $matchUrl
