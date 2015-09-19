@@ -172,7 +172,7 @@ class RouteCollector
      * @param mixed $action
      * @return $this
      */
-    public function when($urİ, $action){
+    public function when($uri, $action){
         return $this->addRoute('WHEN', $uri, $action);
     }
 
