@@ -18,7 +18,7 @@
     }
   ],
   "require": {
-    "php": ">=5.4.0",
+    "php": ">=5.59",
     "anonym-php/anonym-httpfoundation": "~1.2@dev",
     "anonym-php/anonym-view": "~1.2@dev",
     "anonym-php/anonym-security": "~1.2@dev"
