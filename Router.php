@@ -237,11 +237,10 @@ class Router implements RouterInterface
         foreach($collections as $collection){
             if($this->getMatcher()->matchWhen($collection['uri'])){
                 app()->call($collection['action'], [app('route')]);
+
+                break;
             }
         }
-
-
-
 
         return RouteCollector::getRoutes();
     }
