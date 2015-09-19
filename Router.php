@@ -194,7 +194,13 @@ class Router implements RouterInterface
      */
     public function run()
     {
+
         $collections = RouteCollector::getRoutes();
+
+        if($collections['WHEN']){
+           $collections =  $this->resolveWhenCollections($collections);
+        }
+
         $method = strtoupper($this->getRequest()->getMethod());
 
         if (isset($collections[$method])) {
@@ -217,6 +223,16 @@ class Router implements RouterInterface
 
             throw new RouteMatchException(sprintf('There is no route in your %s method', $method));
         }
+    }
+
+    /**
+     * resolve the when collections
+     *
+     * @param array $collections
+     * @return array return the new collections
+     */
+    private function resolveWhenCollections(array $collections = []){
+
     }
 
     /**
