@@ -10,7 +10,9 @@
 
 
 namespace Anonym\Components\Route;
+
 use Anonym\Components\HttpClient\Request;
+
 /**
  * the class of access dispatcher
  *
@@ -39,7 +41,7 @@ class AccessDispatcher implements AccessDispatcherInterface
      */
     public function __construct()
     {
-        $this->access =  AccessBag::getAccesses();
+        $this->access = AccessBag::getAccesses();
         $this->request = AccessBag::getRequest();
     }
 
@@ -65,7 +67,7 @@ class AccessDispatcher implements AccessDispatcherInterface
                         $next = isset($access['next']) ? $access['next'] : null;
                         if ($accessInstance->handle($this->request, $role, $next)) {
                             return true;
-                        }else{
+                        } else {
                             if ($accessInstance instanceof TerminateInterface) {
                                 $accessInstance->terminate($this->request);
                             }

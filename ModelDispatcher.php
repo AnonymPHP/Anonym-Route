@@ -58,7 +58,7 @@ trait ModelDispatcher
      */
     private function createModelInstance($namespace = '', $name = '')
     {
-        $class = $namespace.$name;
+        $class = $namespace . $name;
         return new $class;
     }
 

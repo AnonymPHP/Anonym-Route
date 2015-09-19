@@ -28,7 +28,8 @@ class AsCollector
      * @param string $as
      * @param string $url
      */
-    public static function addAs($as, $url = ''){
+    public static function addAs($as, $url = '')
+    {
         static::$as[$as] = $url;
     }
 

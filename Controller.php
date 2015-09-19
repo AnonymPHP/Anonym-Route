@@ -59,7 +59,7 @@ abstract class Controller
      * @param array $rules
      * @param array $filters
      */
-    public function validate(Request $request, array $rules = [],array $filters = [])
+    public function validate(Request $request, array $rules = [], array $filters = [])
     {
         $all = $request->all();
 

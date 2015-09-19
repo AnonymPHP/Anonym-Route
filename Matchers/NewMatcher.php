@@ -115,7 +115,7 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
         }
 
         // we gonna do run filter  now
-        if(!$this->runFilter(isset($filter) ? $filter : $cln, $add)){
+        if (!$this->runFilter(isset($filter) ? $filter : $cln, $add)) {
             throw new FilterMatchException('Your filter do not match');
         }
 
@@ -129,14 +129,15 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
      * @param string $parameter
      * @return bool|int
      */
-    private function runFilter($filter, $parameter){
-         if(!strstr($filter, '(') && !strstr($filter, ')')){
-               if(!$filter = $this->getFilter($filter)){
-                   return false;
-               }
-         }
+    private function runFilter($filter, $parameter)
+    {
+        if (!strstr($filter, '(') && !strstr($filter, ')')) {
+            if (!$filter = $this->getFilter($filter)) {
+                return false;
+            }
+        }
 
-        return preg_match('@'.$filter.'@si', $parameter) ?: false;
+        return preg_match('@' . $filter . '@si', $parameter) ?: false;
     }
 
     /**

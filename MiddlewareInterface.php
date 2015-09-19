@@ -31,5 +31,5 @@ interface MiddlewareInterface
      * @param callable|null $next work to be done
      * @return mixed
      */
-    public function handle(Request $request, $role,callable $next = null);
+    public function handle(Request $request, $role, callable $next = null);
 }

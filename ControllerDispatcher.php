@@ -9,7 +9,9 @@
  */
 
 namespace Anonym\Components\Route;
+
 use Anonym\Facades\App;
+
 /**
  * Class ControllerDispatcher
  * @package Anonym\Components\Route
@@ -54,14 +56,13 @@ class ControllerDispatcher implements ControllerDispatcherInterface
         $controller = App::make($name);
 
 
-        if($controller instanceof Controller)
-        {
+        if ($controller instanceof Controller) {
             // register the parameters
             $controller->setParameters(ParameterBag::getParameters());
 
             // return the instance
             return $controller;
-        }else{
+        } else {
             throw new ControllerException(sprintf('%s is not a controller', $name));
         }
     }
@@ -75,7 +76,7 @@ class ControllerDispatcher implements ControllerDispatcherInterface
      */
     private function generateClassName($namespace = '', $class = '')
     {
-        return $this->resolveNamespacePath($namespace).$class;
+        return $this->resolveNamespacePath($namespace) . $class;
     }
 
     /**

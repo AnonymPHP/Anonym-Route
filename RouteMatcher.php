@@ -48,7 +48,6 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
     private $matchUrl;
 
 
-
     /**
      * Eşleştirilecek ve eşleşmesi gerek url i ayarlar
      *
@@ -166,7 +165,7 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
      */
     public function getFilter($name = '')
     {
-        return isset($this->filters[$name]) ? $this->filters[$name]: false;
+        return isset($this->filters[$name]) ? $this->filters[$name] : false;
     }
 
 

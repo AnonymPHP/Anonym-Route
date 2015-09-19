@@ -29,6 +29,7 @@ class ParameterBag
     {
         static::$parameters[$name] = $value;
     }
+
     /**
      * Parametreleri döndürür
      *

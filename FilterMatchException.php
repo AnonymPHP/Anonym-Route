@@ -9,6 +9,7 @@
  */
 
 namespace Anonym\Components\Route;
+
 use Exception;
 
 /**
@@ -23,7 +24,8 @@ class FilterMatchException extends Exception
      *
      * @param string $message
      */
-    public function __construct($message = ''){
+    public function __construct($message = '')
+    {
         $this->message = $message;
     }
 }

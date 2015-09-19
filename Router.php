@@ -73,7 +73,8 @@ class Router implements RouterInterface
      *  register the default filters without any service provider
      *
      */
-    private function setDefaultFilters(){
+    private function setDefaultFilters()
+    {
         FilterBag::addFilter('int', '([0-9]+)');
         FilterBag::addFilter('sef', '([a-zA-ZÇŞĞÜÖİçşğüöı0-9+_\-\. ]+)');
         FilterBag::addFilter('string', '([a-zA-Z]+)');
@@ -197,8 +198,8 @@ class Router implements RouterInterface
 
         $collections = RouteCollector::getRoutes();
 
-        if($collections['WHEN']){
-           $collections =  $this->resolveWhenCollections($collections);
+        if ($collections['WHEN']) {
+            $collections = $this->resolveWhenCollections($collections);
         }
 
         $method = strtoupper($this->getRequest()->getMethod());
@@ -231,8 +232,11 @@ class Router implements RouterInterface
      * @param array $collections
      * @return array return the new collections
      */
-    private function resolveWhenCollections(array $collections = []){
+    private function resolveWhenCollections(array $collections = [])
+    {
+        foreach($collections as $collection){
 
+        }
     }
 
     /**

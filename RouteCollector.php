@@ -22,7 +22,7 @@ class RouteCollector
      *
      * @var array
      */
-   private static $routes = [];
+    private static $routes = [];
 
 
     /**
@@ -40,11 +40,10 @@ class RouteCollector
      * @param array $action
      * @return $this
      */
-    private function addRoute($types = '',$uri, $action = [])
+    private function addRoute($types = '', $uri, $action = [])
     {
 
-        if(is_string($action))
-        {
+        if (is_string($action)) {
             $action = ['_controller' => $action];
         }
 
@@ -54,10 +53,9 @@ class RouteCollector
             }
         }
 
-        $types = (array) $types;
+        $types = (array)$types;
 
-        foreach($types as $type)
-        {
+        foreach ($types as $type) {
             $type = mb_convert_case($type, MB_CASE_UPPER);
             static::$routes[$type][] = [
                 'uri' => $uri,
@@ -121,19 +119,20 @@ class RouteCollector
     /**
      * Register a new OPTIONS route with the router.
      *
-     * @param  string  $uri
-     * @param  \Closure|array|string  $action
+     * @param  string $uri
+     * @param  \Closure|array|string $action
      * @return $this
      */
     public function options($uri, $action)
     {
         return $this->addRoute('OPTIONS', $uri, $action);
     }
+
     /**
      * Register a new route responding to all verbs.
      *
-     * @param  string  $uri
-     * @param  \Closure|array|string  $action
+     * @param  string $uri
+     * @param  \Closure|array|string $action
      * @return $this
      */
     public function any($uri, $action)
@@ -144,15 +143,16 @@ class RouteCollector
     /**
      * Register a new route with the given verbs.
      *
-     * @param  array|string  $methods
-     * @param  string  $uri
-     * @param  \Closure|array|string  $action
+     * @param  array|string $methods
+     * @param  string $uri
+     * @param  \Closure|array|string $action
      * @return $this
      */
     public function match($methods, $uri, $action)
     {
-        return $this->addRoute($methods,$uri, $action);
+        return $this->addRoute($methods, $uri, $action);
     }
+
     /**
      * Register a new PATCH route with router
      *
@@ -178,6 +178,7 @@ class RouteCollector
         FilterBag::addFilter($name, $type);
         return $this;
     }
+
     /**
      * Return added routes
      *
