@@ -234,9 +234,10 @@ class Router implements RouterInterface
      */
     private function resolveWhenCollections(array $collections = [])
     {
-        foreach($collections as $collection){
+        $app = $this;
+        array_map(function ($collection) use ($app) {
 
-        }
+        }, $collections);
     }
 
     /**
