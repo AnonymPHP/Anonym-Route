@@ -67,8 +67,6 @@ class Router implements RouterInterface
         $this->setDefaultFilters();
         $this->setMatcher(new NewMatcher($this->getRequest()->getUrl(), null, FilterBag::getFilters()));
         $this->setActionDispatcher(new ActionDispatcher($this->getNamespace(), $this->getAccess(), $this->getRequest()));
-
-        ParameterBag::addParameter('Request', $request);
     }
 
     /**
