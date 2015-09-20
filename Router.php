@@ -198,7 +198,7 @@ class Router implements RouterInterface
         $collections = RouteCollector::getRoutes();
 
         if (isset($collections['WHEN'])) {
-            $collections = $this->resolveWhenCollections($collections);
+            $collections = $this->resolveWhenCollections($collections['WHEN']);
         }
 
         $method = strtoupper($this->getRequest()->getMethod());
