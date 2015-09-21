@@ -117,8 +117,20 @@ class ActionDispatcher implements ActionDispatcherInterface
         }
     }
 
+    /**
+     * find and return middleware
+     *
+     * @param array $action
+     * @return mixed
+     */
     protected function findMiddleware(array $action){
+        if (isset($action['_middleware'])) {
+            return $action['_middleware'];
+        }elseif(isset($this->group['_middleware'])){
+            return $this->group['_middleware'];
+        }
 
+        return false;
     }
 
     /**
