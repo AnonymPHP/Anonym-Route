@@ -262,7 +262,7 @@ class Router implements RouterInterface
      */
     protected function resolveWhenCollections(array $collections = [])
     {
-        foreach ($collections as $collection) {
+        foreach ($collections as $index => $collection) {
             if ($this->getMatcher()->matchWhen($collection['uri'])) {
 
                 // registering when tag
@@ -271,6 +271,7 @@ class Router implements RouterInterface
 
                 // removing when tag
                 unset(RouteCollector::$firing['when']);
+                RouteCollector::removeWhen($index);
                 break;
             }
         }
@@ -294,6 +295,7 @@ class Router implements RouterInterface
 
             // unregister the route
             unset(RouteCollector::$firing['group']);
+            RouteCollector::removeGroup($index);
         }
 
         return RouteCollector::getRoutes();
