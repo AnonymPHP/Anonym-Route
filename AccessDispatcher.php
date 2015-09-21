@@ -76,6 +76,8 @@ class AccessDispatcher implements AccessDispatcherInterface
                 }
             }
         }
+
+        return false;
     }
 
 }
