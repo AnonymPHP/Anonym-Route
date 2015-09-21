@@ -186,6 +186,11 @@ class Router implements RouterInterface
         return $this;
     }
 
+    protected function resolveGroupAndWhen(&$collections)
+    {
+
+    }
+
     /**
      * Run the router and check requested uri
      *
@@ -196,6 +201,8 @@ class Router implements RouterInterface
     {
 
         $method = strtoupper($this->getRequest()->getMethod());
+
+        $this->resolveGroupAndWhen($collections);
 
         if (isset($collections[$method])) {
 
@@ -259,7 +266,7 @@ class Router implements RouterInterface
      */
     private function resolveGroupCollections(array $groups = [])
     {
-        foreach ($groups as $group) {
+        foreach ($groups as $index => $group) {
             // register group
             RouteCollector::$firing['group'] = $group;
 
