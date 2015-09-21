@@ -208,6 +208,8 @@ class Router implements RouterInterface
 
             $collections = $collections[$method];
             foreach ($collections as $collection) {
+
+                // if url is matching with an route, run it
                 if ($this->getMatcher()->match($collection['uri'])) {
 
                     // find and send group variables
