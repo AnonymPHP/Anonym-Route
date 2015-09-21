@@ -11,7 +11,6 @@
 
 namespace Anonym\Components\Route;
 use Closure;
-use Anonym\Facades\App;
 use Anonym\Components\HttpClient\Request;
 use Anonym\Components\HttpClient\Response;
 use Anonym\Components\View\ViewExecuteInterface;
@@ -232,7 +231,7 @@ class ActionDispatcher implements ActionDispatcherInterface
      */
     private function callControllerMethod(Controller $controller, $method)
     {
-        return App::call([$controller, $method], ParameterBag::getParameters());
+        return app()->call([$controller, $method], ParameterBag::getParameters());
     }
 
     /**
