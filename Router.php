@@ -199,7 +199,10 @@ class Router implements RouterInterface
         $collections = RouteCollector::getRoutes();
 
         if (isset($collections['WHEN'])) {
-            $collections = $this->resolveGroupCollections($collections['WHEN'], RouteCollector::getGroups());
+            $collections  = $this->resolveWhenCollections($collections['WHEN']);
+        }
+        if (isset($collections['WHEN']) || count($groups = RouteCollector::getGroups())) {
+            $collections = $this->resolveGroupCollections($collections['WHEN'], $groups);
         }
 
         $method = strtoupper($this->getRequest()->getMethod());
@@ -235,14 +238,12 @@ class Router implements RouterInterface
     }
 
     /**
-     * resolve the when collections
+     * resolve when collections
      *
      * @param array $collections
-     * @param array $groups
-     * @return array return the new collections
+     * @return array
      */
-    private function resolveGroupCollections(array $collections = [], array $groups = [])
-    {
+    protected function resolveWhenCollections(array $collections = []){
         foreach ($collections as $collection) {
             if ($this->getMatcher()->matchWhen($collection['uri'])) {
 
@@ -256,10 +257,27 @@ class Router implements RouterInterface
             }
         }
 
-        $collections = RouteCollector::getRoutes();
+        return RouteCollector::getRoutes();
+    }
+
+    /**
+     * resolve the when collections
+     *
+     * @param array $collections
+     * @param array $groups
+     * @return array return the new collections
+     */
+    private function resolveGroupCollections(array $collections = [], array $groups = [])
+    {
+
+        if (isset($collections['WHEN'])) {
+            $whens = $collections['WHEN'];
+
+        }
+
 
         if (count($groups)) {
-            foreach($groups as $group){
+            foreach ($groups as $group) {
                 // register group
                 RouteCollector::$firing['group'] = $group;
 
@@ -270,7 +288,7 @@ class Router implements RouterInterface
             }
         }
 
-        return $collections;
+        return RouteCollector::getRoutes();
     }
 
     /**
