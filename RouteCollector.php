@@ -196,6 +196,8 @@ class RouteCollector
             'action' => $action,
             'callback' => $callback
         ];
+
+        return $this;
     }
 
     /**
