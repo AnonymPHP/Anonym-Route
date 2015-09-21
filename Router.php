@@ -212,11 +212,13 @@ class Router implements RouterInterface
 
                     $group = isset($collection['group']) ? $collection['group'] : null;
 
+                    // dispatch action dispatcher
                     $content = $this->getActionDispatcher()->dispatch($collection['action'], $group);
 
                     if (is_string($content)) {
                         $this->sendContentString($content, $this->getRequest());
                     }
+
                     return true;
                 }
             }
