@@ -63,6 +63,19 @@ class ActionDispatcher implements ActionDispatcherInterface
     }
 
     /**
+     * register group
+     *
+     * @param null|array $group
+     * @param array|string $action
+     */
+    protected function registerGroup($group = null, $action = []){
+        if($group !== null){
+            $this->group = $group;
+        }elseif(isset($action['_group'])){
+            $this->group = $action['_group'];
+        }
+    }
+    /**
      * Dispatch a action from array
      *
      * @param array|string $action
@@ -72,8 +85,8 @@ class ActionDispatcher implements ActionDispatcherInterface
     public function dispatch($action = [], $group = null)
     {
 
-        // register group parameter
-        $this->group = $group !== null ? $group : null;
+        // find and register route group
+        $this->registerGroup($group, $action);
 
         // convert string type to array
         if (is_string($action)) {
