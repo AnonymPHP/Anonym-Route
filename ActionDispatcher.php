@@ -143,14 +143,14 @@ class ActionDispatcher implements ActionDispatcherInterface
                 $method = $action['_method'];
             }
 
-
-            if (is_array($action)) {
-                if (strstr('\\', $controller)) {
-                    $namespace = explode('\\', $controller);
-                    $controller = end($namespace);
-                    $action['_namespace'] = rtrim(join('\\', array_slice($namespace, 0, count($namespace) - 1)), '\\');
-                }
+            if (strstr('\\', $controller)) {
+                $namespace = explode('\\', $controller);
+                $controller = end($namespace);
+                $namespace = rtrim(join('\\', array_slice($namespace, 0, count($namespace) - 1)), '\\');
             }
+
+            return [$controller, $method, $namespace ?: null];
+
         } else {
             throw new ControllerException('Your controller variable could not found in your route');
         }
