@@ -9,6 +9,7 @@
 
 
 namespace Anonym\Components\Route;
+
 use Anonym\Components\HttpClient\Request;
 use Anonym\Components\Route\Matchers\NewMatcher;
 
@@ -198,7 +199,7 @@ class Router implements RouterInterface
         $collections = RouteCollector::getRoutes();
 
         if (isset($collections['WHEN'])) {
-            $collections = $this->resolveWhenCollections($collections['WHEN']);
+            $collections = $this->resolveGroupCollections($collections['WHEN'], RouteCollector::getGroups());
         }
 
         $method = strtoupper($this->getRequest()->getMethod());
@@ -231,10 +232,10 @@ class Router implements RouterInterface
      * @param array $collections
      * @return array return the new collections
      */
-    private function resolveWhenCollections(array $collections = [])
+    private function resolveGroupCollections(array $collections = [])
     {
-        foreach($collections as $collection){
-            if($this->getMatcher()->matchWhen($collection['uri'])){
+        foreach ($collections as $collection) {
+            if ($this->getMatcher()->matchWhen($collection['uri'])) {
                 app()->call($collection['action'], [app('route')]);
                 break;
             }
