@@ -73,7 +73,7 @@ class RouteCollector
             $type = mb_convert_case($type, MB_CASE_UPPER);
 
             $add = [
-                'uri' => $uri,
+                'uri' => isset(static::$firing['when'] ? $this->createWhenUri($uri) : $uri,
                 'action' => $action
             ];;
 
