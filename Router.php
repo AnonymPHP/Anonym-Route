@@ -242,8 +242,8 @@ class Router implements RouterInterface
             $collections = $this->resolveGroupCollections($collections);
         }
 
-        if (count($when = $collections['WHEN'])) {
-            $collections = $this->resolveWhenCollections($collections);
+        if (isset($collections['WHEN'])) {
+            $collections = $this->resolveWhenCollections($collections['WHEN']);
         }
 
         if(count($groups = RouteCollector::getGroups())){
