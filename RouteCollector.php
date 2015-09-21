@@ -26,6 +26,13 @@ class RouteCollector
 
 
     /**
+     * All group collections
+     *
+     * @var array
+     */
+    private static $groups = [];
+
+    /**
      * All verbs supported by router
      *
      * @var array
@@ -178,6 +185,20 @@ class RouteCollector
 
 
     /**
+     * register a new group collection
+     *
+     * @param string $name
+     * @param array $action
+     * @param Closure $callback
+     */
+    public function group($name, $action, Closure $callback){
+        static::$groups[$name] = [
+            'action' => $action,
+            'callback' => $callback
+        ];
+    }
+
+    /**
      * Register a new filter with name and type
      *
      * @param string $name The name of filter
@@ -230,5 +251,20 @@ class RouteCollector
         $this->verbs = $verbs;
     }
 
+    /**
+     * @return array
+     */
+    public static function getGroups()
+    {
+        return self::$groups;
+    }
+
+    /**
+     * @param array $groups
+     */
+    public static function setGroups($groups)
+    {
+        self::$groups = $groups;
+    }
 
 }
