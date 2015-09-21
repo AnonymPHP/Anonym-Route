@@ -88,8 +88,10 @@ class ActionDispatcher implements ActionDispatcherInterface
 
             list($controller, $method, $namespace) = $this->findControllerAndMethod($action);
 
-            if($middleware = $this->findMiddleware($action)){
-                $this->runMiddleware($middleware);
+            if ($middleware = $this->findMiddleware($action)) {
+                if (false === $this->runMiddleware($middleware)) {
+                    return false;
+                }
             }
 
             if (isset($action['_middleware'])) {
@@ -123,14 +125,20 @@ class ActionDispatcher implements ActionDispatcherInterface
      * @param array $action
      * @return mixed
      */
-    protected function findMiddleware(array $action){
+    protected function findMiddleware(array $action)
+    {
         if (isset($action['_middleware'])) {
             return $action['_middleware'];
-        }elseif(isset($this->group['_middleware'])){
+        } elseif (isset($this->group['_middleware'])) {
             return $this->group['_middleware'];
         }
 
         return false;
+    }
+
+    protected function runMiddleware(array $middleware)
+    {
+
     }
 
     /**
@@ -166,17 +174,19 @@ class ActionDispatcher implements ActionDispatcherInterface
      * @param string $controller
      * @return array|string
      */
-    protected function findNamespaceInController(&$controller){
+    protected function findNamespaceInController(&$controller)
+    {
         if (strstr('\\', $controller)) {
             $namespace = explode('\\', $controller);
             $controller = end($namespace);
             $namespace = rtrim(join('\\', array_slice($namespace, 0, count($namespace) - 1)), '\\');
-        }else{
+        } else {
             $namespace = isset($this->group['_namespace']) ? $this->group['namespace'] : null;
         }
 
         return $namespace;
     }
+
     /**
      * Handler the controller returned value
      *
