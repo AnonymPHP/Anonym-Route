@@ -186,9 +186,24 @@ class Router implements RouterInterface
         return $this;
     }
 
+    /**
+     * resolve group and when collections
+     *
+     * @param array $collections
+     */
     protected function resolveGroupAndWhen(&$collections)
     {
+        if(count(RouteCollector::getGroups())){
+            $collections = $this->resolveGroupCollections($collections);
+        }
 
+        if (count($when = $collections['WHEN'])) {
+            $collections = $this->resolveWhenCollections($collections);
+        }
+
+        if(count($groups = RouteCollector::getGroups())){
+            $collections = $this->resolveGroupCollections($groups);
+        }
     }
 
     /**
