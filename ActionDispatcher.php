@@ -71,7 +71,7 @@ class ActionDispatcher implements ActionDispatcherInterface
     protected function registerGroup($group = null, $action = []){
         if($group !== null){
             $this->group = $group;
-        }elseif(isset($action['_group'])){
+        }elseif(is_array($action) && isset($action['_group'])){
             $this->group = $action['_group'];
         }
     }
