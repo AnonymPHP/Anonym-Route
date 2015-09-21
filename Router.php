@@ -252,7 +252,11 @@ class Router implements RouterInterface
 
         if (count($groups)) {
             foreach($groups as $group){
+                // register group
+                RouteCollector::$firing['group'] = $group;
 
+
+                unset(RouteCollector::$firing['group']);
             }
         }
 
