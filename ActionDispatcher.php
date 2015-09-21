@@ -65,6 +65,7 @@ class ActionDispatcher implements ActionDispatcherInterface
     {
 
 
+        // convert string type to array
         if (is_string($action)) {
             $action = [
                 '_controller' => $action
@@ -73,6 +74,9 @@ class ActionDispatcher implements ActionDispatcherInterface
 
 
         if (is_array($action)) {
+
+            
+
             if (isset($action['_controller']) || $action['uses']) {
                 $controller = isset($action['_controller']) ? $action['_controller'] : $action['uses'];
 

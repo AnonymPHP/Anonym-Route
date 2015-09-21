@@ -209,7 +209,10 @@ class Router implements RouterInterface
             $collections = $collections[$method];
             foreach ($collections as $collection) {
                 if ($this->getMatcher()->match($collection['uri'])) {
-                    $content = $this->getActionDispatcher()->dispatch($collection['action']);
+
+                    $group = isset($collection['group']) ? $collection['group'] : null;
+
+                    $content = $this->getActionDispatcher()->dispatch($collection['action'], $group);
 
                     if (is_string($content)) {
                         $this->sendContentString($content, $this->getRequest());
