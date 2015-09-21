@@ -10,6 +10,7 @@
 
 
 namespace Anonym\Components\Route;
+
 use Closure;
 use Anonym\Components\HttpClient\Request;
 use Anonym\Components\HttpClient\Response;
