@@ -198,7 +198,7 @@ class Router implements RouterInterface
 
         $method = strtoupper($this->getRequest()->getMethod());
 
-        $this->resolveGroupAndWhen($collections);
+        $collections = $this->resolveGroupAndWhen(RouteCollector::getRoutes());
 
         if (isset($collections[$method])) {
 
@@ -234,8 +234,9 @@ class Router implements RouterInterface
      * resolve group and when collections
      *
      * @param array $collections
+     * @return array
      */
-    protected function resolveGroupAndWhen(&$collections)
+    protected function resolveGroupAndWhen($collections)
     {
         if(count(RouteCollector::getGroups())){
             $collections = $this->resolveGroupCollections($collections);
@@ -248,6 +249,8 @@ class Router implements RouterInterface
         if(count($groups = RouteCollector::getGroups())){
             $collections = $this->resolveGroupCollections($groups);
         }
+
+        return $collections;
     }
 
 
