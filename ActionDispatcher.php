@@ -41,6 +41,14 @@ class ActionDispatcher implements ActionDispatcherInterface
     private $accessDispatcher;
 
     /**
+     * the group variables
+     *
+     * @var array
+     */
+    private $group;
+
+
+    /**
      * create a new instance and register the default namespace
      *
      * @param string $namespace
@@ -59,11 +67,13 @@ class ActionDispatcher implements ActionDispatcherInterface
      * Dispatch a action from array
      *
      * @param array|string $action
+     * @param array|null $group
      * @return mixed
      */
-    public function dispatch($action = [])
+    public function dispatch($action = [], $group = null)
     {
 
+        $this->group = $group !== null ? $group : null;
 
         // convert string type to array
         if (is_string($action)) {
@@ -75,7 +85,7 @@ class ActionDispatcher implements ActionDispatcherInterface
 
         if (is_array($action)) {
 
-            
+
 
             if (isset($action['_controller']) || $action['uses']) {
                 $controller = isset($action['_controller']) ? $action['_controller'] : $action['uses'];
