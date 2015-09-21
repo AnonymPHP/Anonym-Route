@@ -73,6 +73,7 @@ class ActionDispatcher implements ActionDispatcherInterface
     public function dispatch($action = [], $group = null)
     {
 
+        // register group parameter
         $this->group = $group !== null ? $group : null;
 
         // convert string type to array
@@ -85,7 +86,7 @@ class ActionDispatcher implements ActionDispatcherInterface
 
         if (is_array($action)) {
 
-
+            list($controller, $method) = $this->findControllerAndMethod($action);
 
             if (isset($action['_controller']) || $action['uses']) {
                 $controller = isset($action['_controller']) ? $action['_controller'] : $action['uses'];
@@ -128,6 +129,27 @@ class ActionDispatcher implements ActionDispatcherInterface
             return $this->handleResponse(App::call($action, ParameterBag::getParameters()));
         } else {
             return false;
+        }
+    }
+
+    protected function findControllerAndMethod(array $action){
+        if (isset($action['_controller']) || $action['uses']) {
+            $controller = isset($action['_controller']) ? $action['_controller'] : $action['uses'];
+
+            if (strstr($controller, ':')) {
+                list($controller, $method) = explode(':', $controller);
+            } elseif ($action['_method']) {
+                $method = $action['_method'];
+            }
+
+
+            if (is_array($action)) {
+                if (strstr('\\', $controller)) {
+                    $namespace = explode('\\', $controller);
+                    $controller = end($namespace);
+                    $action['_namespace'] = rtrim(join('\\', array_slice($namespace, 0, count($namespace) - 1)), '\\');
+                }
+            }
         }
     }
 
