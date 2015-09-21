@@ -12,7 +12,6 @@ namespace Anonym\Components\Route;
 
 use Anonym\Components\HttpClient\Request;
 use Anonym\Components\Route\Matchers\NewMatcher;
-use Anonym\Facades\Route;
 
 /**
  * Class Router
