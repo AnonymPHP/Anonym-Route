@@ -71,6 +71,13 @@ class RouteCollector
 
         foreach ($types as $type) {
             $type = mb_convert_case($type, MB_CASE_UPPER);
+
+            // add group parameter to action variable
+            if(static::$firing['group']){
+                 $action['_group'] = static::$firing['group'];
+            }
+
+            // register route
             static::$routes[$type][] = [
                 'uri' => $uri,
                 'action' => $action
