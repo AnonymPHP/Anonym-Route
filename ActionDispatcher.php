@@ -10,12 +10,11 @@
 
 
 namespace Anonym\Components\Route;
-
+use Closure;
+use Anonym\Facades\App;
 use Anonym\Components\HttpClient\Request;
 use Anonym\Components\HttpClient\Response;
 use Anonym\Components\View\ViewExecuteInterface;
-use Closure;
-use Anonym\Facades\App;
 
 /**
  * the class of action dispatcher
