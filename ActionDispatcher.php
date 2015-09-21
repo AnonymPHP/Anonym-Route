@@ -85,8 +85,6 @@ class ActionDispatcher implements ActionDispatcherInterface
     public function dispatch($action = [], $group = null)
     {
 
-        // find and register route group
-        $this->registerGroup($group, $action);
 
         // convert string type to array
         if (is_string($action)) {
@@ -95,6 +93,9 @@ class ActionDispatcher implements ActionDispatcherInterface
             ];
         }
 
+
+        // find and register route group
+        $this->registerGroup($group, $action);
 
         if (is_array($action)) {
 
