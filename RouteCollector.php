@@ -78,26 +78,35 @@ class RouteCollector
             ];;
 
             // add group parameter to action variable
-            if(static::$firing['group']){
-                 $add['group'] = static::$firing['group'];
+            if (static::$firing['group']) {
+                $add['group'] = static::$firing['group'];
             }
 
             // add to collection
-            static::$routes[$type][] =  $add;
+            static::$routes[$type][] = $add;
         }
         return $this;
     }
 
     /**
-     * create new uri
+     * prapare uri to merge with when url, and return it.
      *
      * @param string $uri
      * @return string
      */
-    protected function createWhenUri($uri){
+    protected function createWhenUri($uri)
+    {
         $when = static::$firing['when'];
 
+        if (substr($when, -1) !== '/') {
+            $when .= '/';
+        }
 
+        if(substr($uri, 0,1) === '/'){
+            $uri = substr($uri, 1, strlen($uri));
+        }
+
+        return $when.$uri;
     }
 
     /**
@@ -207,7 +216,8 @@ class RouteCollector
      * @param mixed $action
      * @return $this
      */
-    public function when($uri, $action){
+    public function when($uri, $action)
+    {
         return $this->addRoute('WHEN', $uri, $action);
     }
 
@@ -220,7 +230,8 @@ class RouteCollector
      * @param Closure $callback
      * @return $this
      */
-    public function group($name, $action, Closure $callback){
+    public function group($name, $action, Closure $callback)
+    {
         static::$groups[$name] = [
             'action' => $action,
             'callback' => $callback
@@ -234,9 +245,11 @@ class RouteCollector
      *
      * @return array
      */
-    public static function firing(){
+    public static function firing()
+    {
         return static::$firing;
     }
+
     /**
      * Register a new filter with name and type
      *
