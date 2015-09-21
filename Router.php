@@ -199,7 +199,7 @@ class Router implements RouterInterface
         $collections = RouteCollector::getRoutes();
 
         if (isset($collections['WHEN'])) {
-            $collections  = $this->resolveWhenCollections($collections['WHEN']);
+            $collections = $this->resolveWhenCollections($collections['WHEN']);
         }
         if (isset($collections['WHEN']) || count($groups = RouteCollector::getGroups())) {
             $collections = $this->resolveGroupCollections($collections['WHEN'], $groups);
@@ -243,7 +243,8 @@ class Router implements RouterInterface
      * @param array $collections
      * @return array
      */
-    protected function resolveWhenCollections(array $collections = []){
+    protected function resolveWhenCollections(array $collections = [])
+    {
         foreach ($collections as $collection) {
             if ($this->getMatcher()->matchWhen($collection['uri'])) {
 
@@ -263,29 +264,19 @@ class Router implements RouterInterface
     /**
      * resolve the when collections
      *
-     * @param array $collections
      * @param array $groups
      * @return array return the new collections
      */
-    private function resolveGroupCollections(array $collections = [], array $groups = [])
+    private function resolveGroupCollections(array $groups = [])
     {
+        foreach ($groups as $group) {
+            // register group
+            RouteCollector::$firing['group'] = $group;
 
-        if (isset($collections['WHEN'])) {
-            $whens = $collections['WHEN'];
+            app()->call($group['callback'], app('route'));
 
-        }
-
-
-        if (count($groups)) {
-            foreach ($groups as $group) {
-                // register group
-                RouteCollector::$firing['group'] = $group;
-
-                app()->call($group['callback'], app('route'));
-
-                // unregister the route
-                unset(RouteCollector::$firing['group']);
-            }
+            // unregister the route
+            unset(RouteCollector::$firing['group']);
         }
 
         return RouteCollector::getRoutes();
