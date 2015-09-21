@@ -88,6 +88,10 @@ class ActionDispatcher implements ActionDispatcherInterface
 
             list($controller, $method, $namespace) = $this->findControllerAndMethod($action);
 
+            if($middleware = $this->findMiddleware($action)){
+                $this->runMiddleware($middleware);
+            }
+
             if (isset($action['_middleware'])) {
 
                 if (false === $this->getAccessDispatcher()->process($action['_middleware'])) {
@@ -111,6 +115,10 @@ class ActionDispatcher implements ActionDispatcherInterface
         } else {
             return false;
         }
+    }
+
+    protected function findMiddleware(array $action){
+
     }
 
     /**
