@@ -186,25 +186,6 @@ class Router implements RouterInterface
         return $this;
     }
 
-    /**
-     * resolve group and when collections
-     *
-     * @param array $collections
-     */
-    protected function resolveGroupAndWhen(&$collections)
-    {
-        if(count(RouteCollector::getGroups())){
-            $collections = $this->resolveGroupCollections($collections);
-        }
-
-        if (count($when = $collections['WHEN'])) {
-            $collections = $this->resolveWhenCollections($collections);
-        }
-
-        if(count($groups = RouteCollector::getGroups())){
-            $collections = $this->resolveGroupCollections($groups);
-        }
-    }
 
     /**
      * Run the router and check requested uri
@@ -248,6 +229,27 @@ class Router implements RouterInterface
             throw new RouteMatchException(sprintf('There is no route in your %s method', $method));
         }
     }
+
+    /**
+     * resolve group and when collections
+     *
+     * @param array $collections
+     */
+    protected function resolveGroupAndWhen(&$collections)
+    {
+        if(count(RouteCollector::getGroups())){
+            $collections = $this->resolveGroupCollections($collections);
+        }
+
+        if (count($when = $collections['WHEN'])) {
+            $collections = $this->resolveWhenCollections($collections);
+        }
+
+        if(count($groups = RouteCollector::getGroups())){
+            $collections = $this->resolveGroupCollections($groups);
+        }
+    }
+
 
     /**
      * resolve when collections
