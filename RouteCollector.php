@@ -37,7 +37,7 @@ class RouteCollector
      *
      * @var array
      */
-    private static $firing;
+    public static $firing;
 
     /**
      * All verbs supported by router
