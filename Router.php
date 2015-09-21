@@ -210,6 +210,7 @@ class Router implements RouterInterface
             foreach ($collections as $collection) {
                 if ($this->getMatcher()->match($collection['uri'])) {
 
+                    // find and send group variables
                     $group = isset($collection['group']) ? $collection['group'] : null;
 
                     // dispatch action dispatcher
