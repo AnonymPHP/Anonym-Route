@@ -317,7 +317,7 @@ class RouteCollector
      * @param string|int $index
      */
     public static function removeWhen($index){
-        unset(static::$routes['WHEN'][$index];
+        unset(static::$routes['WHEN'][$index]);
     }
 
     /**
