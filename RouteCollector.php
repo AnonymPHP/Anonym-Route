@@ -33,6 +33,13 @@ class RouteCollector
     private static $groups = [];
 
     /**
+     * the last fired group collection
+     *
+     * @var array
+     */
+    private static $firing;
+
+    /**
      * All verbs supported by router
      *
      * @var array
@@ -190,6 +197,7 @@ class RouteCollector
      * @param string $name
      * @param array $action
      * @param Closure $callback
+     * @return $this
      */
     public function group($name, $action, Closure $callback){
         static::$groups[$name] = [
