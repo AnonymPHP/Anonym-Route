@@ -255,6 +255,7 @@ class Router implements RouterInterface
                 // register group
                 RouteCollector::$firing['group'] = $group;
 
+                app()->call($group['callback'], app('route'));
 
                 unset(RouteCollector::$firing['group']);
             }
