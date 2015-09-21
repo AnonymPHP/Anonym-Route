@@ -79,7 +79,7 @@ class RouteCollector
             ];;
 
             // add group parameter to action variable
-            if (static::$firing['group']) {
+            if (isset(static::$firing['group'])) {
                 $add['group'] = static::$firing['group'];
             }
 
