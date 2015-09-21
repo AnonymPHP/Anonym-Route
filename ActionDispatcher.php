@@ -87,6 +87,7 @@ class ActionDispatcher implements ActionDispatcherInterface
 
             list($controller, $method, $namespace) = $this->findControllerAndMethod($action);
 
+            // find and run middleware
             if ($middleware = $this->findMiddleware($action)) {
                 if (false === $this->runMiddleware($middleware)) {
                     return false;
@@ -94,9 +95,10 @@ class ActionDispatcher implements ActionDispatcherInterface
             }
 
             // register the namespace
-            isset($action['_namespace']) ? $this->setNamespace($action['_namespace']) : null;
 
-            // create a controlelr instance
+            isset($namespace) ? $this->setNamespace($namespace) : null;
+
+            // create a controller instance
             $controller = $this->createControllerInstance($controller);
 
             // call the method
