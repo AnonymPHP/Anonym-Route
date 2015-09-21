@@ -68,13 +68,17 @@ class ActionDispatcher implements ActionDispatcherInterface
      * @param null|array $group
      * @param array|string $action
      */
-    protected function registerGroup($group = null, $action = []){
-        if($group !== null){
-            $this->group = $group;
-        }elseif(is_array($action) && isset($action['_group'])){
-            $this->group = $action['_group'];
+    protected function registerGroup($group = null, $action = [])
+    {
+        if ($group !== null) {
+            $this->group = $group['action'];
+        } elseif (is_array($action) && isset($action['_group'])) {
+            $groups = RouteCollector::getGroups();
+            $group = $action['_group'];
+            $this->group = isset($groups[$group]) ? $groups[$group] : null;
         }
     }
+
     /**
      * Dispatch a action from array
      *
@@ -84,7 +88,6 @@ class ActionDispatcher implements ActionDispatcherInterface
      */
     public function dispatch($action = [], $group = null)
     {
-
 
         // convert string type to array
         if (is_string($action)) {
@@ -97,16 +100,17 @@ class ActionDispatcher implements ActionDispatcherInterface
         // find and register route group
         $this->registerGroup($group, $action);
 
+        // find and run middleware
+        if ($middleware = $this->findMiddleware($action)) {
+
+            if (false === $this->runMiddleware($middleware)) {
+                throw new MiddlewareException('You Can not access here.');
+            }
+        }
+
         if (is_array($action)) {
 
             list($controller, $method, $namespace) = $this->findControllerAndMethod($action);
-
-            // find and run middleware
-            if ($middleware = $this->findMiddleware($action)) {
-                if (false === $this->runMiddleware($middleware)) {
-                    return false;
-                }
-            }
 
             // register the namespace
             isset($namespace) ? $this->setNamespace($namespace) : null;
@@ -131,9 +135,9 @@ class ActionDispatcher implements ActionDispatcherInterface
      * @param array $action
      * @return mixed
      */
-    protected function findMiddleware(array $action)
+    protected function findMiddleware($action)
     {
-        if (isset($action['_middleware'])) {
+        if (is_array($action) && isset($action['_middleware'])) {
             return $action['_middleware'];
         } elseif (isset($this->group['_middleware'])) {
             return $this->group['_middleware'];
