@@ -25,6 +25,8 @@ use Anonym\Components\View\ViewExecuteInterface;
 class ActionDispatcher implements ActionDispatcherInterface
 {
 
+    use Middleware;
+
     /**
      * default namespace of the controllers
      *
@@ -32,12 +34,6 @@ class ActionDispatcher implements ActionDispatcherInterface
      */
     private $namespace;
 
-    /**
-     * the instance of access dispatcher
-     *
-     * @var AccessDispatcherInterface
-     */
-    private $accessDispatcher;
 
     /**
      * the group variables
@@ -58,7 +54,6 @@ class ActionDispatcher implements ActionDispatcherInterface
     {
         $this->namespace = $namespace;
         AccessBag::setRequest($request);
-        $this->setAccessDispatcher(new AccessDispatcher());
 
     }
 
@@ -102,10 +97,7 @@ class ActionDispatcher implements ActionDispatcherInterface
 
         // find and run middleware
         if ($middleware = $this->findMiddleware($action)) {
-
-            if (false === $this->runMiddleware($middleware)) {
-                throw new MiddlewareException('You Can not access here.');
-            }
+            app()->call([$this, 'middleware'], $middleware);
         }
 
         if (is_array($action)) {

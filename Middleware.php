@@ -51,7 +51,7 @@ trait Middleware
         ]);
 
         if (true !== $middleware) {
-            throw new MiddlewareException('You can\'t access here, your authority is incorrect');
+            app('route.middleware.failed');
         }
 
         return true;
