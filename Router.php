@@ -257,6 +257,7 @@ class Router implements RouterInterface
 
                 app()->call($group['callback'], app('route'));
 
+                // unregister the route
                 unset(RouteCollector::$firing['group']);
             }
         }
