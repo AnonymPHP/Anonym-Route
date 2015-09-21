@@ -86,26 +86,7 @@ class ActionDispatcher implements ActionDispatcherInterface
 
         if (is_array($action)) {
 
-            list($controller, $method) = $this->findControllerAndMethod($action);
-
-            if (isset($action['_controller']) || $action['uses']) {
-                $controller = isset($action['_controller']) ? $action['_controller'] : $action['uses'];
-
-                if (strstr($controller, ':')) {
-                    list($controller, $method) = explode(':', $controller);
-                } elseif ($action['_method']) {
-                    $method = $action['_method'];
-                }
-
-
-                if (is_array($action)) {
-                    if (strstr('\\', $controller)) {
-                        $namespace = explode('\\', $controller);
-                        $controller = end($namespace);
-                        $action['_namespace'] = rtrim(join('\\', array_slice($namespace, 0, count($namespace) - 1)), '\\');
-                    }
-                }
-            }
+            list($controller, $method, $namespace) = $this->findControllerAndMethod($action);
 
             if (isset($action['_middleware'])) {
 
@@ -132,6 +113,13 @@ class ActionDispatcher implements ActionDispatcherInterface
         }
     }
 
+    /**
+     * find controller, method and namespace in action variable
+     *
+     * @param array $action
+     * @return array
+     * @throws ControllerException
+     */
     protected function findControllerAndMethod(array $action)
     {
         if (isset($action['_controller']) || $action['uses']) {
@@ -163,8 +151,11 @@ class ActionDispatcher implements ActionDispatcherInterface
             $namespace = explode('\\', $controller);
             $controller = end($namespace);
             $namespace = rtrim(join('\\', array_slice($namespace, 0, count($namespace) - 1)), '\\');
-            return $namespace;
+        }else{
+            $namespace = isset($this->group['_namespace']) ? $this->group['namespace'] : null;
         }
+
+        return $namespace;
     }
     /**
      * Handler the controller returned value
