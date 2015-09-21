@@ -224,14 +224,20 @@ class Router implements RouterInterface
                 }
             }
 
-            app('route.not.found');
+            $this->callRouteNotFoundCommand();
 
         } else {
 
-            throw new RouteMatchException(sprintf('There is no route in your %s method', $method));
+            $this->callRouteNotFoundCommand();
         }
     }
 
+    /**
+     *  make http not found response with route service
+     */
+    protected function callRouteNotFoundCommand(){
+        app('route.not.found');
+    }
     /**
      * resolve group and when collections
      *
