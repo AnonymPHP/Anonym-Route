@@ -12,6 +12,7 @@ namespace Anonym\Components\Route;
 
 use Anonym\Components\HttpClient\Request;
 use Anonym\Components\Route\Matchers\NewMatcher;
+use Anonym\Facades\Route;
 
 /**
  * Class Router
@@ -269,8 +270,6 @@ class Router implements RouterInterface
                 RouteCollector::$firing['when'] = $collection['uri'];
                 app()->call($collection['action'], [app('route')]);
 
-                // removing when tag
-                unset(RouteCollector::$firing['when']);
                 RouteCollector::removeWhen($index);
                 break;
             }
