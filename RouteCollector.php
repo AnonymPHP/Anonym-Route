@@ -95,6 +95,8 @@ class RouteCollector
      * @return string
      */
     protected function createWhenUri($uri){
+        $when = static::$firing['when'];
+
 
     }
 
