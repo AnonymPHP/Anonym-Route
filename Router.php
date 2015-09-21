@@ -14,7 +14,6 @@ use Anonym\Components\HttpClient\Request;
 use Anonym\Components\Route\Matchers\NewMatcher;
 
 
-
 /**
  * Class Router
  * @package Anonym\Components\Route
@@ -197,37 +196,25 @@ class Router implements RouterInterface
      */
     public function run()
     {
-
         $method = strtoupper($this->getRequest()->getMethod());
-
         $collections = $this->resolveGroupAndWhen(RouteCollector::getRoutes());
-
         if (isset($collections[$method])) {
-
             $collections = $collections[$method];
             foreach ($collections as $collection) {
-
                 // if url is matching with an route, run it
                 if ($this->getMatcher()->match($collection['uri'])) {
-
                     // find and send group variables
                     $group = isset($collection['group']) ? $collection['group'] : null;
-
                     // dispatch action dispatcher
                     $content = $this->getActionDispatcher()->dispatch($collection['action'], $group);
-
                     if (is_string($content)) {
                         $this->sendContentString($content, $this->getRequest());
                     }
-
                     return true;
                 }
             }
-
             $this->callRouteNotFoundCommand();
-
         } else {
-
             $this->callRouteNotFoundCommand();
         }
     }
@@ -235,9 +222,11 @@ class Router implements RouterInterface
     /**
      *  make http not found response with route service
      */
-    protected function callRouteNotFoundCommand(){
+    protected function callRouteNotFoundCommand()
+    {
         app('route.not.found');
     }
+
     /**
      * resolve group and when collections
      *
@@ -246,7 +235,7 @@ class Router implements RouterInterface
      */
     protected function resolveGroupAndWhen($collections)
     {
-        if(count(RouteCollector::getGroups())){
+        if (count(RouteCollector::getGroups())) {
             $collections = $this->resolveGroupCollections($collections);
         }
 
@@ -254,7 +243,7 @@ class Router implements RouterInterface
             $collections = $this->resolveWhenCollections($collections['WHEN']);
         }
 
-        if(count($groups = RouteCollector::getGroups())){
+        if (count($groups = RouteCollector::getGroups())) {
             $collections = $this->resolveGroupCollections($groups);
         }
 
@@ -297,7 +286,7 @@ class Router implements RouterInterface
             // register group
             RouteCollector::$firing['group'] = $group;
 
-            app()->call($group['callback'],  [app('route')]);
+            app()->call($group['callback'], [app('route')]);
 
             // unregister the route
             unset(RouteCollector::$firing['group']);
