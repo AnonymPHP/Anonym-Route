@@ -72,6 +72,11 @@ class RouteCollector
         foreach ($types as $type) {
             $type = mb_convert_case($type, MB_CASE_UPPER);
 
+            // convert string type to array type
+            if (is_string($action)) {
+                $action = ['_controller' => $action];
+            }
+
             // add group parameter to action variable
             if(static::$firing['group']){
                  $action['_group'] = static::$firing['group'];
