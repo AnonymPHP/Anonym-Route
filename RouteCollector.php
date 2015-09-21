@@ -209,6 +209,14 @@ class RouteCollector
     }
 
     /**
+     * return called group
+     *
+     * @return array
+     */
+    public static function firing(){
+        return static::$firing;
+    }
+    /**
      * Register a new filter with name and type
      *
      * @param string $name The name of filter
