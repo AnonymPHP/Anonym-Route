@@ -106,7 +106,7 @@ class ActionDispatcher implements ActionDispatcherInterface
             return $this->handleResponse($response);
 
         } elseif ($action instanceof Closure) {
-            return $this->handleResponse(App::call($action, ParameterBag::getParameters()));
+            return $this->handleResponse(app()->call($action, ParameterBag::getParameters()));
         } else {
             return false;
         }
