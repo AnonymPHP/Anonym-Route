@@ -94,14 +94,6 @@ class ActionDispatcher implements ActionDispatcherInterface
                 }
             }
 
-            if (isset($action['_middleware'])) {
-
-                if (false === $this->getAccessDispatcher()->process($action['_middleware'])) {
-                    return false;
-                }
-
-            }
-
             // register the namespace
             isset($action['_namespace']) ? $this->setNamespace($action['_namespace']) : null;
 
@@ -136,9 +128,15 @@ class ActionDispatcher implements ActionDispatcherInterface
         return false;
     }
 
+    /**
+     * return user middleware with given variables
+     *
+     * @param array $middleware
+     * @return bool
+     */
     protected function runMiddleware(array $middleware)
     {
-
+        return $this->getAccessDispatcher()->process($middleware);
     }
 
     /**
