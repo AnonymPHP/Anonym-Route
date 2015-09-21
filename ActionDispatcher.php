@@ -109,7 +109,6 @@ class ActionDispatcher implements ActionDispatcherInterface
             }
 
             // register the namespace
-
             isset($namespace) ? $this->setNamespace($namespace) : null;
 
             // create a controller instance
