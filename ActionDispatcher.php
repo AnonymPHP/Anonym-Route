@@ -132,7 +132,8 @@ class ActionDispatcher implements ActionDispatcherInterface
         }
     }
 
-    protected function findControllerAndMethod(array $action){
+    protected function findControllerAndMethod(array $action)
+    {
         if (isset($action['_controller']) || $action['uses']) {
             $controller = isset($action['_controller']) ? $action['_controller'] : $action['uses'];
 
@@ -150,6 +151,8 @@ class ActionDispatcher implements ActionDispatcherInterface
                     $action['_namespace'] = rtrim(join('\\', array_slice($namespace, 0, count($namespace) - 1)), '\\');
                 }
             }
+        } else {
+            throw new ControllerException('Your controller variable could not found in your route');
         }
     }
 
