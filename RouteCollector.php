@@ -312,6 +312,24 @@ class RouteCollector
     }
 
     /**
+     * remove an when collection
+     *
+     * @param string|int $index
+     */
+    public static function removeWhen($index){
+        unset(static::$routes['WHEN'][$index];
+    }
+
+    /**
+     * remove an group collection
+     *
+     * @param string|int $index
+     */
+    public static function removeGroup($index){
+        unset(static::$groups[$index]);
+    }
+
+    /**
      * @param array $groups
      */
     public static function setGroups($groups)

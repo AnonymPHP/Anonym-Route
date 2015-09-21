@@ -186,7 +186,6 @@ class Router implements RouterInterface
         return $this;
     }
 
-
     /**
      * Run the router and check requested uri
      *
@@ -195,18 +194,6 @@ class Router implements RouterInterface
      */
     public function run()
     {
-
-        $collections = RouteCollector::getRoutes();
-
-        if (count(RouteCollector::getGroups())) {
-            $collections = $this->resolveGroupCollections(RouteCollector::getGroups());
-            RouteCollector::setGroups([]);
-        }
-
-        if (isset($collections['WHEN'])) {
-            $collections = $this->resolveWhenCollections($collections['WHEN']);
-        }
-
 
         $method = strtoupper($this->getRequest()->getMethod());
 
