@@ -10,7 +10,10 @@
 
 namespace Anonym\Components\Route;
 
-
+/**
+ * Class AsCollector
+ * @package Anonym\Components\Route
+ */
 class AsCollector
 {
 
