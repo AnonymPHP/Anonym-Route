@@ -89,6 +89,16 @@ class RouteCollector
     }
 
     /**
+     * create new uri
+     *
+     * @param string $uri
+     * @return string
+     */
+    protected function createWhenUri($uri){
+
+    }
+
+    /**
      * Register a new GET route with router
      *
      * @param string $uri
