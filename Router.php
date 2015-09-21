@@ -230,9 +230,10 @@ class Router implements RouterInterface
      * resolve the when collections
      *
      * @param array $collections
+     * @param array $groups
      * @return array return the new collections
      */
-    private function resolveGroupCollections(array $collections = [])
+    private function resolveGroupCollections(array $collections = [], array $groups = [])
     {
         foreach ($collections as $collection) {
             if ($this->getMatcher()->matchWhen($collection['uri'])) {
@@ -247,7 +248,15 @@ class Router implements RouterInterface
             }
         }
 
-        return RouteCollector::getRoutes();
+        $collections = RouteCollector::getRoutes();
+
+        if (count($groups)) {
+            foreach($groups as $group){
+
+            }
+        }
+
+        return $collections;
     }
 
     /**
