@@ -167,6 +167,7 @@ class ActionDispatcher implements ActionDispatcherInterface
                 $method = $action['_method'];
             }
 
+
             $namespace = $this->findNamespaceInController($controller);
 
             return [$controller, $method, $namespace];
@@ -184,7 +185,7 @@ class ActionDispatcher implements ActionDispatcherInterface
      */
     protected function findNamespaceInController(&$controller)
     {
-        if (strstr('\\', $controller)) {
+        if (strstr($controller, '\\')) {
             $namespace = explode('\\', $controller);
             $controller = end($namespace);
             $namespace = rtrim(join('\\', array_slice($namespace, 0, count($namespace) - 1)), '\\');
