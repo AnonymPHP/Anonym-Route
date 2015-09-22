@@ -12,6 +12,7 @@
 namespace Anonym\Components\Route;
 
 use Closure;
+use Illuminate\View\View;
 use Anonym\Components\HttpClient\Request;
 use Anonym\Components\HttpClient\Response;
 use Anonym\Components\View\ViewExecuteInterface;
@@ -205,8 +206,8 @@ class ActionDispatcher implements ActionDispatcherInterface
     private function handleResponse($response)
     {
 
-        if ($response instanceof ViewExecuteInterface) {
-            $content = $response->execute();
+        if ($response instanceof View) {
+            $content = $response->render();
         } elseif ($response instanceof Response) {
             $content = $response->getContent();
         } elseif ($response instanceof Request) {
