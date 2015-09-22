@@ -114,9 +114,11 @@ class NewMatcher extends RouteMatcher implements MatcherInterface
             $add = isset($requestEx[$key]) ? $requestEx[$key] : null;
         }
 
-        // we gonna do run filter  now
-        if (!$this->runFilter(isset($filter) ? $filter : $cln, $add)) {
-            throw new FilterMatchException('Your filter do not match');
+        if($add !== null){
+            // we gonna do run filter  now
+            if (!$this->runFilter(isset($filter) ? $filter : $cln, $add)) {
+                throw new FilterMatchException('Your filter do not match');
+            }
         }
 
         $this->parameters[$cln] = $add;
