@@ -102,12 +102,13 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
      *
      * Urller aynı ise direk döndürüyor
      *
+     * @param string $url
      * @return bool
      */
-    private function isUrlEqual()
+    public function isUrlEqual($url = null)
     {
 
-        if ($this->getMatchUrl() === $this->getRequestedUrl()) {
+        if ($this->getMatchUrl() ?: $url === $this->getRequestedUrl()) {
             return true;
         }
 

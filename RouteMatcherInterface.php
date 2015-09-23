@@ -24,4 +24,14 @@ interface RouteMatcherInterface
      * @return bool
      */
     public function match($matchUrl = null);
+
+
+    /**
+     *
+     * Urller aynı ise direk döndürüyor
+     *
+     * @param string $url
+     * @return bool
+     */
+    public function isUrlEqual($url = null);
 }

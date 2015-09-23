@@ -198,9 +198,20 @@ class Router implements RouterInterface
     {
         $method = strtoupper($this->getRequest()->getMethod());
         $collections = $this->resolveGroupAndWhen(RouteCollector::getRoutes());
-        if (isset($collections[$method])) {
+
+
+        if (!$this->hasAnyRouteInRequestMethod($collections, $method)) {
+            $this->callRouteNotFoundCommand();
+        }
+
             $collections = $collections[$method];
+
             foreach ($collections as $collection) {
+
+                if(!$this->getMatcher()->isUrlEqueal()){
+
+                }
+
                 // if url is matching with an route, run it
                 if ($this->getMatcher()->match($collection['uri'])) {
                     // find and send group variables
@@ -214,9 +225,18 @@ class Router implements RouterInterface
                 }
             }
             $this->callRouteNotFoundCommand();
-        } else {
-            $this->callRouteNotFoundCommand();
-        }
+
+    }
+
+    /**
+     * determine is there any route in your request method
+     *
+     * @param string $collections
+     * @param string $method
+     * @return bool
+     */
+    protected function hasAnyRouteInRequestMethod($collections, $method){
+        return isset($collections[$method]);
     }
 
     /**
