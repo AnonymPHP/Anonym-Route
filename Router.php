@@ -206,12 +206,26 @@ class Router implements RouterInterface
 
         $collections = $collections[$method];
 
-        foreach ($collections as $collection) {
 
-            if ($this->getMatcher()->isUrlEqueal($collection['uri'])) {
-                $this->dispatchCollection($collection);
-                return true;
-            }
+        if (false === $this->isThereEquealUrl($collections)) {
+            $this->isThereMatchUrl($collections);
+        }
+
+        $this->callRouteNotFoundCommand();
+        return false;
+    }
+
+
+    /**
+     *
+     *
+     * @param array $collections
+     * @return bool
+     */
+    protected function isThereMatchUrl($collections)
+    {
+
+        foreach ($collections as $collection) {
 
             if ($this->getMatcher()->match($collection['uri'])) {
                 $this->dispatchCollection($collection);
@@ -219,8 +233,25 @@ class Router implements RouterInterface
             }
         }
 
-        $this->callRouteNotFoundCommand();
+        return false;
 
+    }
+
+    /**
+     * @param array $collections
+     * @return bool
+     */
+    protected function isThereEquealUrl($collections)
+    {
+        foreach ($collections as $collection) {
+
+            if ($this->getMatcher()->isUrlEqueal($collection['uri'])) {
+                $this->dispatchCollection($collection);
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -228,7 +259,8 @@ class Router implements RouterInterface
      *
      * @param mixed $collection
      */
-    protected function dispatchCollection($collection){
+    protected function dispatchCollection($collection)
+    {
         // find and send group variables
         $group = isset($collection['group']) ? $collection['group'] : null;
         // dispatch action dispatcher
@@ -237,6 +269,7 @@ class Router implements RouterInterface
             $this->sendContentString($content, $this->getRequest());
         }
     }
+
     /**
      * determine is there any route in your request method
      *
