@@ -197,8 +197,6 @@ class Router implements RouterInterface
     public function run()
     {
 
-        $return = false;
-
         $method = strtoupper($this->getRequest()->getMethod());
         $collections = $this->resolveGroupAndWhen(RouteCollector::getRoutes());
 
