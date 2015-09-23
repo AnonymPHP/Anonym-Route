@@ -246,7 +246,7 @@ class Router implements RouterInterface
     {
         foreach ($collections as $collection) {
 
-            if ($this->getMatcher()->isUrlEqueal($collection['uri'])) {
+            if ($this->getMatcher()->isUrlEqual($collection['uri'])) {
                 $this->dispatchCollection($collection);
                 return true;
             }
