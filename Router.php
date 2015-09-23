@@ -204,30 +204,39 @@ class Router implements RouterInterface
             $this->callRouteNotFoundCommand();
         }
 
-            $collections = $collections[$method];
+        $collections = $collections[$method];
 
-            foreach ($collections as $collection) {
+        foreach ($collections as $collection) {
 
-                if(!$this->getMatcher()->isUrlEqueal()){
-
-                }
-
-                // if url is matching with an route, run it
-                if ($this->getMatcher()->match($collection['uri'])) {
-                    // find and send group variables
-                    $group = isset($collection['group']) ? $collection['group'] : null;
-                    // dispatch action dispatcher
-                    $content = $this->getActionDispatcher()->dispatch($collection['action'], $group);
-                    if (is_string($content)) {
-                        $this->sendContentString($content, $this->getRequest());
-                    }
-                    return true;
-                }
+            if ($this->getMatcher()->isUrlEqueal($collection['uri'])) {
+                $this->dispatchCollection($collection);
+                return true;
             }
-            $this->callRouteNotFoundCommand();
+
+            if ($this->getMatcher()->match($collection['uri'])) {
+                $this->dispatchCollection($collection);
+                return true;
+            }
+        }
+
+        $this->callRouteNotFoundCommand();
 
     }
 
+    /**
+     * dispatch matched collection
+     *
+     * @param mixed $collection
+     */
+    protected function dispatchCollection($collection){
+        // find and send group variables
+        $group = isset($collection['group']) ? $collection['group'] : null;
+        // dispatch action dispatcher
+        $content = $this->getActionDispatcher()->dispatch($collection['action'], $group);
+        if (is_string($content)) {
+            $this->sendContentString($content, $this->getRequest());
+        }
+    }
     /**
      * determine is there any route in your request method
      *
@@ -235,7 +244,8 @@ class Router implements RouterInterface
      * @param string $method
      * @return bool
      */
-    protected function hasAnyRouteInRequestMethod($collections, $method){
+    protected function hasAnyRouteInRequestMethod($collections, $method)
+    {
         return isset($collections[$method]);
     }
 
