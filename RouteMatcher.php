@@ -108,9 +108,14 @@ class RouteMatcher implements RouteMatcherInterface, MatcherInterface
     public function isUrlEqual($url = null)
     {
 
-        if ($this->getMatchUrl() ?: $url === $this->getRequestedUrl()) {
-            return true;
+        if($url === null){
+            $url = $this->getMatchUrl();
         }
+
+        $url = str_replace('/', ' ', $url);
+        $requested = str_replace('/', ' ', $this->getRequestedUrl());
+
+        return trim($url) === trim($requested);
 
     }
 
